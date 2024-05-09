@@ -1,0 +1,32 @@
+{
+  "name": "categorizr-repo",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "workspaces": [
+    "packages/*"
+  ],
+  "engines": {
+    "node": "^18.0.0 || >=20.0.0"
+  },
+  "scripts": {
+    "preinstall": "npx only-allow pnpm",
+    "test": "vitest --config ./vitest.config.ts",
+    "build": "pnpm -r --parallel --filter='./packages/*' run build",
+    "dev:core": "pnpm -r --filter='./packages/core' run dev"
+  },
+  "devDependencies": {
+    "@categorizr/core": "workspace:*",
+    "typescript": "^5.2.2",
+    "vite": "^5.2.0",
+    "vitest": "1.6.0",
+    "vite-tsconfig-paths": "4.3.2",
+    "@types/node": "20.12.11"
+  },
+  "packageManager": "pnpm@8.15.5",
+  "pnpm": {
+    "overrides": {
+      "@categorizr/core": "workspace:*"
+    }
+  }
+}
