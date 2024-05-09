@@ -1,6 +1,6 @@
 import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
-import { findParent } from "../findParent";
 import type { TreeNode } from "$core/types";
+import { findParent } from "../findParent";
 
 describe("findParent", async () => {
   beforeAll(() => {
