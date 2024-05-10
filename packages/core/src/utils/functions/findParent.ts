@@ -1,10 +1,8 @@
 import { MaybeNode, TreeNode } from "$core/types";
-import { clone, noChildren } from "../helpers";
+import { noChildren } from "../helpers";
 
 export function findParent<T extends TreeNode>(tree: readonly T[], node: T): MaybeNode<T> {
-  const cloneTree = clone(tree);
-
-  for (const branch of cloneTree) {
+  for (const branch of tree) {
     if (noChildren(branch)) continue;
 
     if (branch.children.some((child) => child.id === node.id)) return branch;

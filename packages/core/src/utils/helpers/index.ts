@@ -1,4 +1,4 @@
-import { TreeNode } from "$core/types";
+import { Mutable, TreeNode } from "$core/types";
 
 export function noChildren<T extends TreeNode>(node: T) {
   return !node.children || node.children.length === 0;
@@ -8,8 +8,8 @@ export function todo(message: string) {
   throw new Error(message);
 }
 
-export function clone<T>(input: T): T {
-  if (input === null || typeof input !== "object") return input;
+export function clone<T>(input: T): Mutable<T> {
+  if (input === null || typeof input !== "object") return input as Mutable<T>;
 
   if (Array.isArray(input)) {
     const clonedArr: any[] = [];
@@ -18,7 +18,7 @@ export function clone<T>(input: T): T {
       clonedArr.push(clone(input[i]));
     }
 
-    return clonedArr as T;
+    return clonedArr as Mutable<T>;
   }
 
   const clonedObj = Object.create(Object.getPrototypeOf(input));
@@ -29,5 +29,5 @@ export function clone<T>(input: T): T {
     }
   }
 
-  return clonedObj as T;
+  return clonedObj as Mutable<T>;
 }

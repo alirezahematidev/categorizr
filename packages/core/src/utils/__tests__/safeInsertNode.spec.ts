@@ -25,6 +25,46 @@ describe("safeInsertNode", async () => {
     expect(safeInsertNode(emptyTree, "3", node)).toStrictEqual(emptyTree);
   });
 
+  it("returns updated tree including the inserted node at first level of tree within null destId", () => {
+    const node = {
+      id: "5",
+      name: "category-5",
+      children: [],
+    };
+
+    expect(safeInsertNode(CATEGORIES, null, node)).toStrictEqual([
+      {
+        id: "1",
+        name: "category-1",
+        children: [
+          {
+            id: "3",
+            name: "sub-category-1",
+            children: [],
+          },
+        ],
+      },
+      {
+        id: "2",
+        name: "category-2",
+        children: [
+          {
+            id: "4",
+            name: "sub-category-2",
+            children: [],
+          },
+        ],
+      },
+      {
+        id: "5",
+        name: "category-5",
+        children: [],
+      },
+    ]);
+
+    expect(safeInsertNode(CATEGORIES, null, node)).toMatchSnapshot();
+  });
+
   it("returns updated tree including the inserted node", () => {
     const node1 = {
       id: "10",
@@ -48,7 +88,7 @@ describe("safeInsertNode", async () => {
 
     safeInsertNode(CATEGORIES, "10", node2, (newTree, error) => {
       expect(newTree).toStrictEqual(CATEGORIES);
-      expect(error).toStrictEqual(new Error("cannot found the parent node within given parentId."));
+      expect(error).toStrictEqual(new Error("cannot found the parent node within given destId."));
     });
   });
 });

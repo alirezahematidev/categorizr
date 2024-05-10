@@ -1,5 +1,5 @@
-import { InsertCallback, InsertCallbackWithError, MaybeNode, TreeNode } from "$core/types";
-import { findParent, findNode, insertNode, safeInsertNode } from "./functions";
+import { DestId, InsertCallback, InsertCallbackWithError, MaybeNode, TreeNode } from "$core/types";
+import { findParent, findNode, insertNode, safeInsertNode, removeNode } from "./functions";
 
 export class Categorizr<T extends TreeNode> {
   private readonly tree: ReadonlyArray<T> = [];
@@ -16,17 +16,21 @@ export class Categorizr<T extends TreeNode> {
     return findNode(this.tree, id);
   }
 
-  public insertNode<const Id extends T["id"]>(destId: Id, node: T, callback: InsertCallback<T>): void;
-  public insertNode<const Id extends T["id"]>(destId: Id, node: T): T[];
-  public insertNode(destId: string, node: any, callback?: InsertCallback<any>) {
+  public removeNode<Id extends T["id"]>(id: Id): T[] {
+    return removeNode(this.tree, id);
+  }
+
+  public insertNode<const Id extends T["id"]>(destId: DestId<Id>, node: T, callback: InsertCallback<T>): void;
+  public insertNode<const Id extends T["id"]>(destId: DestId<Id>, node: T): T[];
+  public insertNode(destId: DestId<any>, node: any, callback?: InsertCallback<any>) {
     if (callback) return insertNode(this.tree, destId, node, callback);
 
     return insertNode(this.tree, destId, node);
   }
 
-  public safeInsertNode<const Id extends T["id"]>(destId: Id, node: T, callback: InsertCallbackWithError<T>): void;
-  public safeInsertNode<const Id extends T["id"]>(destId: Id, node: T): T[];
-  public safeInsertNode(destId: string, node: any, callback?: InsertCallbackWithError<any>) {
+  public safeInsertNode<const Id extends T["id"]>(destId: DestId<Id>, node: T, callback: InsertCallbackWithError<T>): void;
+  public safeInsertNode<const Id extends T["id"]>(destId: DestId<Id>, node: T): T[];
+  public safeInsertNode(destId: DestId<any>, node: any, callback?: InsertCallbackWithError<any>) {
     if (callback) return safeInsertNode(this.tree, destId, node, callback);
 
     return safeInsertNode(this.tree, destId, node);
