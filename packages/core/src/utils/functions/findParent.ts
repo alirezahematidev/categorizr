@@ -1,7 +1,7 @@
-import { TreeNode } from "$core/types";
-import { noChildren } from "./helpers";
+import { MaybeNode, TreeNode } from "$core/types";
+import { noChildren } from "../helpers";
 
-export function findParent<T extends TreeNode>(tree: T[], node: T): T | undefined {
+export function findParent<T extends TreeNode>(tree: T[], node: T): MaybeNode<T> {
   for (const branch of tree) {
     if (noChildren(branch)) continue;
 

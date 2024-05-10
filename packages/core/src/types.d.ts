@@ -3,3 +3,5 @@ export interface TreeNode {
   children: TreeNode[];
   [property: string]: any;
 }
+
+export type MaybeNode<T extends TreeNode> = T | undefined;

@@ -1,1 +1,2 @@
-export * from "./findParent";
+export * from "./functions";
+export * from "./categorizr";
