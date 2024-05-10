@@ -1,10 +1,11 @@
-import { TreeNode } from "$core/types";
+import { InsertCallback, TreeNode } from "$core/types";
+import { clone } from "../helpers";
 import { findNode } from "./findNode";
 
-function insertNode<T extends TreeNode, const Id extends T["id"]>(tree: T[], destId: Id, node: T, callback: (tree: T[]) => void): void;
-function insertNode<T extends TreeNode, const Id extends T["id"]>(tree: T[], destId: Id, node: T): T[];
-function insertNode(tree: any[], destId: string, node: any, callback?: (tree: any[]) => void) {
-  const cloneTree = [...tree];
+function insertNode<T extends TreeNode, const Id extends T["id"]>(tree: readonly T[], destId: Id, node: T, callback: InsertCallback<T>): void;
+function insertNode<T extends TreeNode, const Id extends T["id"]>(tree: readonly T[], destId: Id, node: T): T[];
+function insertNode(tree: readonly any[], destId: string, node: any, callback?: InsertCallback<any>) {
+  const cloneTree = clone(tree);
 
   const parentNode = findNode(cloneTree, destId);
 

@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`insertNode > returns updated tree including the inserted node 1`] = `
+exports[`safeInsertNode > returns updated tree including the inserted node 1`] = `
 [
   {
     "children": [
@@ -33,7 +33,7 @@ exports[`insertNode > returns updated tree including the inserted node 1`] = `
 ]
 `;
 
-exports[`insertNode > returns updated tree including the inserted node 2`] = `
+exports[`safeInsertNode > returns updated tree including the inserted node 2`] = `
 [
   {
     "children": [

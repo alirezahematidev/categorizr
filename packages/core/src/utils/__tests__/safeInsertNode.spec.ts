@@ -1,10 +1,10 @@
 import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
 import type { TreeNode } from "$core/types";
-import { insertNode } from "../functions";
+import { safeInsertNode } from "../functions";
 
-describe("insertNode", async () => {
+describe("safeInsertNode", async () => {
   beforeAll(() => {
-    vi.fn().mockImplementation(insertNode);
+    vi.fn().mockImplementation(safeInsertNode);
   });
 
   afterAll(() => {
@@ -22,7 +22,7 @@ describe("insertNode", async () => {
       children: [],
     };
 
-    expect(() => insertNode(emptyTree, "3", node)).toThrow(new Error("cannot found the parent node within given parentId."));
+    expect(safeInsertNode(emptyTree, "3", node)).toStrictEqual(emptyTree);
   });
 
   it("returns updated tree including the inserted node", () => {
@@ -38,13 +38,17 @@ describe("insertNode", async () => {
       children: [],
     };
 
-    expect(insertNode(CATEGORIES, "3", node1)).toMatchSnapshot();
+    expect(safeInsertNode(CATEGORIES, "3", node1)).toMatchSnapshot();
 
-    // test the given data is extremely immutable.
-    expect(() => insertNode(CATEGORIES, "10", node2)).toThrow(new Error("cannot found the parent node within given parentId."));
+    expect(safeInsertNode(CATEGORIES, "10", node2)).toStrictEqual(CATEGORIES);
 
-    insertNode(CATEGORIES, "3", node2, (newTree) => {
+    safeInsertNode(CATEGORIES, "3", node2, (newTree) => {
       expect(newTree).toMatchSnapshot();
+    });
+
+    safeInsertNode(CATEGORIES, "10", node2, (newTree, error) => {
+      expect(newTree).toStrictEqual(CATEGORIES);
+      expect(error).toStrictEqual(new Error("cannot found the parent node within given parentId."));
     });
   });
 });
