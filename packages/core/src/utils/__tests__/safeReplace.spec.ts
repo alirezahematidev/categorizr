@@ -21,7 +21,7 @@ describe("safeReplace", async () => {
 
     safeReplace(CATEGORIES, "10", {}, (tree, error) => {
       expect(tree).toStrictEqual(CATEGORIES);
-      expect(error).toStrictEqual(new Error("cannot found the target node within given id"));
+      expect(error).toStrictEqual(new Error("[Categorizr:safeReplace] cannot found the node within given id"));
     });
   });
 

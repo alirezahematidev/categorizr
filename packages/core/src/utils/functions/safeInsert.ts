@@ -16,7 +16,7 @@ function safeInsert<T extends TreeNode>(tree: readonly T[], destId: DestId, node
   const parentNode = findNode(cloneTree, destId);
 
   if (!parentNode) {
-    warning("safeInsert", "cannot found the node within given id");
+    warning("safeInsert", "cannot found the parent node within given destId.");
 
     if (callback) return void callback(tree, exception("safeInsert", "cannot found the parent node within given destId."));
 

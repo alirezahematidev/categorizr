@@ -21,7 +21,7 @@ describe("safeMove", async () => {
 
     safeMove(CATEGORIES, "10", null, (tree, error) => {
       expect(tree).toStrictEqual(CATEGORIES);
-      expect(error).toStrictEqual(new Error("cannot found the node within given id"));
+      expect(error).toStrictEqual(new Error("[Categorizr:safeMove] cannot found the node within given id"));
     });
   });
 
@@ -32,7 +32,7 @@ describe("safeMove", async () => {
 
     safeMove(CATEGORIES, "1", "3", (tree, error) => {
       expect(tree).toStrictEqual(CATEGORIES);
-      expect(error).toStrictEqual(new Error("Cannot move the node into its own descendants."));
+      expect(error).toStrictEqual(new Error("[Categorizr:safeMove] Cannot move the node into its own descendants."));
     });
   });
 

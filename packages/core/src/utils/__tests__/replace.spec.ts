@@ -16,8 +16,8 @@ describe("replace", async () => {
   it("throws an error when node is not found", () => {
     const emptyTree: TreeNode[] = [];
 
-    expect(() => replace(emptyTree, "1", {})).toThrow(new Error("cannot found the target node within given id"));
-    expect(() => replace(CATEGORIES, "10", {})).toThrow(new Error("cannot found the target node within given id"));
+    expect(() => replace(emptyTree, "1", {})).toThrow(new Error("[Categorizr:replace] cannot found the target node within given id"));
+    expect(() => replace(CATEGORIES, "10", {})).toThrow(new Error("[Categorizr:replace] cannot found the target node within given id"));
   });
 
   it("returns updated tree within replaced node that has id", () => {

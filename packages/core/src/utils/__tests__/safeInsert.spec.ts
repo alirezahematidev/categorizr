@@ -23,6 +23,11 @@ describe("safeInsert", async () => {
     };
 
     expect(safeInsert(emptyTree, "3", node)).toStrictEqual(emptyTree);
+
+    safeInsert(emptyTree, "3", node, (tree, error) => {
+      expect(tree).toStrictEqual(emptyTree);
+      expect(error).toStrictEqual(new Error("[Categorizr:safeInsert] cannot found the parent node within given destId."));
+    });
   });
 
   it("returns updated tree including the inserted node at first level of tree within null destId", () => {
@@ -95,7 +100,7 @@ describe("safeInsert", async () => {
 
     safeInsert(CATEGORIES, "10", node2, (newTree, error) => {
       expect(newTree).toStrictEqual(CATEGORIES);
-      expect(error).toStrictEqual(new Error("cannot found the parent node within given destId."));
+      expect(error).toStrictEqual(new Error("[Categorizr:safeInsert] cannot found the parent node within given destId."));
     });
   });
 });

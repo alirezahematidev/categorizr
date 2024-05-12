@@ -22,7 +22,7 @@ describe("insert", async () => {
       children: [],
     };
 
-    expect(() => insert(emptyTree, "3", node)).toThrow(new Error("cannot found the parent node within given destId."));
+    expect(() => insert(emptyTree, "3", node)).toThrow(new Error("[Categorizr:insert] cannot found the parent node within given destId."));
   });
 
   it("returns updated tree including the inserted node at first level of tree within null destId", () => {
@@ -86,7 +86,7 @@ describe("insert", async () => {
 
     expect(insert(CATEGORIES, "3", node1)).toMatchSnapshot();
 
-    expect(() => insert(CATEGORIES, "10", node2)).toThrow(new Error("cannot found the parent node within given destId."));
+    expect(() => insert(CATEGORIES, "10", node2)).toThrow(new Error("[Categorizr:insert] cannot found the parent node within given destId."));
 
     insert(CATEGORIES, "3", node2, (newTree) => {
       expect(newTree).toMatchSnapshot();

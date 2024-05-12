@@ -16,14 +16,14 @@ describe("move", async () => {
   it("throws an error when node is not found", () => {
     const emptyTree: TreeNode[] = [];
 
-    expect(() => move(emptyTree, "1", null)).toThrow(new Error("cannot found the node within given id"));
-    expect(() => move(CATEGORIES, "10", null)).toThrow(new Error("cannot found the node within given id"));
+    expect(() => move(emptyTree, "1", null)).toThrow(new Error("[Categorizr:move] cannot found the node within given id"));
+    expect(() => move(CATEGORIES, "10", null)).toThrow(new Error("[Categorizr:move] cannot found the node within given id"));
   });
 
   it("throws an error when try move node to its own descendants", () => {
-    expect(() => move(CATEGORIES, "1", "3")).toThrow(new Error("Cannot move the node into its own descendants."));
-    expect(() => move(CATEGORIES, "1", "5")).toThrow(new Error("Cannot move the node into its own descendants."));
-    expect(() => move(CATEGORIES, "3", "5")).toThrow(new Error("Cannot move the node into its own descendants."));
+    expect(() => move(CATEGORIES, "1", "3")).toThrow(new Error("[Categorizr:move] Cannot move the node into its own descendants."));
+    expect(() => move(CATEGORIES, "1", "5")).toThrow(new Error("[Categorizr:move] Cannot move the node into its own descendants."));
+    expect(() => move(CATEGORIES, "3", "5")).toThrow(new Error("[Categorizr:move] Cannot move the node into its own descendants."));
   });
 
   it("moved nodeId:4 to nodeId:3 should", () => {
