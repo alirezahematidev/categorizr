@@ -1,7 +1,7 @@
 import { todo } from "../helpers";
 
-function moveNode() {
+function swap() {
   todo("NO IMPLEMENTATION");
 }
 
-export { moveNode };
+export { swap };

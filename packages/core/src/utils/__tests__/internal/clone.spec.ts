@@ -1,5 +1,5 @@
 import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
-import { clone } from "../helpers";
+import { clone } from "../../helpers";
 
 describe("clone", async () => {
   beforeAll(() => {

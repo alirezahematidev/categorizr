@@ -1,10 +1,10 @@
 import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
 import type { TreeNode } from "$core/types";
-import { insertNode } from "../functions";
+import { insert } from "../functions";
 
-describe("insertNode", async () => {
+describe("insert", async () => {
   beforeAll(() => {
-    vi.fn().mockImplementation(insertNode);
+    vi.fn().mockImplementation(insert);
   });
 
   afterAll(() => {
@@ -18,21 +18,21 @@ describe("insertNode", async () => {
 
     const node = {
       id: "10",
-      name: "category-3",
+      name: "sub-category-3",
       children: [],
     };
 
-    expect(() => insertNode(emptyTree, "3", node)).toThrow(new Error("cannot found the parent node within given destId."));
+    expect(() => insert(emptyTree, "3", node)).toThrow(new Error("cannot found the parent node within given destId."));
   });
 
   it("returns updated tree including the inserted node at first level of tree within null destId", () => {
     const node = {
-      id: "5",
-      name: "category-5",
+      id: "6",
+      name: "sub-category-root",
       children: [],
     };
 
-    expect(insertNode(CATEGORIES, null, node)).toStrictEqual([
+    expect(insert(CATEGORIES, null, node)).toStrictEqual([
       {
         id: "1",
         name: "category-1",
@@ -40,7 +40,13 @@ describe("insertNode", async () => {
           {
             id: "3",
             name: "sub-category-1",
-            children: [],
+            children: [
+              {
+                id: "5",
+                name: "sub-category-3",
+                children: [],
+              },
+            ],
           },
         ],
       },
@@ -56,34 +62,33 @@ describe("insertNode", async () => {
         ],
       },
       {
-        id: "5",
-        name: "category-5",
+        id: "6",
+        name: "sub-category-root",
         children: [],
       },
     ]);
 
-    expect(insertNode(CATEGORIES, null, node)).toMatchSnapshot();
+    expect(insert(CATEGORIES, null, node)).toMatchSnapshot();
   });
 
   it("returns updated tree including the inserted node", () => {
     const node1 = {
       id: "10",
-      name: "category-3",
+      name: "sub-category-3",
       children: [],
     };
 
     const node2 = {
       id: "20",
-      name: "category-10",
+      name: "sub-category-10",
       children: [],
     };
 
-    expect(insertNode(CATEGORIES, "3", node1)).toMatchSnapshot();
+    expect(insert(CATEGORIES, "3", node1)).toMatchSnapshot();
 
-    // test the given data is extremely immutable.
-    expect(() => insertNode(CATEGORIES, "10", node2)).toThrow(new Error("cannot found the parent node within given destId."));
+    expect(() => insert(CATEGORIES, "10", node2)).toThrow(new Error("cannot found the parent node within given destId."));
 
-    insertNode(CATEGORIES, "3", node2, (newTree) => {
+    insert(CATEGORIES, "3", node2, (newTree) => {
       expect(newTree).toMatchSnapshot();
     });
   });

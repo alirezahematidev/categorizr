@@ -4,7 +4,13 @@ exports[`findParent > returns correct parent node for node with children 1`] = `
 {
   "children": [
     {
-      "children": [],
+      "children": [
+        {
+          "children": [],
+          "id": "5",
+          "name": "sub-category-3",
+        },
+      ],
       "id": "3",
       "name": "sub-category-1",
     },

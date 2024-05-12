@@ -1,6 +1,6 @@
 import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
 import type { TreeNode } from "$core/types";
-import { findParent } from "../functions";
+import { findParent } from "../../functions/internal";
 
 describe("findParent", async () => {
   beforeAll(() => {
@@ -39,7 +39,13 @@ describe("findParent", async () => {
     const node = {
       id: "3",
       name: "sub-category-1",
-      children: [],
+      children: [
+        {
+          id: "5",
+          name: "sub-category-3",
+          children: [],
+        },
+      ],
     };
 
     expect(findParent(CATEGORIES, node)).toMatchSnapshot();

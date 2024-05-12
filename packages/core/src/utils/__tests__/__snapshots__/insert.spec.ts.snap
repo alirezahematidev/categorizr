@@ -1,15 +1,20 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`safeInsertNode > returns updated tree including the inserted node 1`] = `
+exports[`insert > returns updated tree including the inserted node 1`] = `
 [
   {
     "children": [
       {
         "children": [
+          {
+            "children": [],
+            "id": "5",
+            "name": "sub-category-3",
+          },
           {
             "children": [],
             "id": "10",
-            "name": "category-3",
+            "name": "sub-category-3",
           },
         ],
         "id": "3",
@@ -33,7 +38,7 @@ exports[`safeInsertNode > returns updated tree including the inserted node 1`] =
 ]
 `;
 
-exports[`safeInsertNode > returns updated tree including the inserted node 2`] = `
+exports[`insert > returns updated tree including the inserted node 2`] = `
 [
   {
     "children": [
@@ -41,8 +46,13 @@ exports[`safeInsertNode > returns updated tree including the inserted node 2`] =
         "children": [
           {
             "children": [],
+            "id": "5",
+            "name": "sub-category-3",
+          },
+          {
+            "children": [],
             "id": "20",
-            "name": "category-10",
+            "name": "sub-category-10",
           },
         ],
         "id": "3",
@@ -66,12 +76,18 @@ exports[`safeInsertNode > returns updated tree including the inserted node 2`] =
 ]
 `;
 
-exports[`safeInsertNode > returns updated tree including the inserted node at first level of tree within null destId 1`] = `
+exports[`insert > returns updated tree including the inserted node at first level of tree within null destId 1`] = `
 [
   {
     "children": [
       {
-        "children": [],
+        "children": [
+          {
+            "children": [],
+            "id": "5",
+            "name": "sub-category-3",
+          },
+        ],
         "id": "3",
         "name": "sub-category-1",
       },
@@ -92,8 +108,8 @@ exports[`safeInsertNode > returns updated tree including the inserted node at fi
   },
   {
     "children": [],
-    "id": "5",
-    "name": "category-5",
+    "id": "6",
+    "name": "sub-category-root",
   },
 ]
 `;

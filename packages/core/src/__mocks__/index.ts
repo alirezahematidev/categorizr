@@ -6,7 +6,13 @@ const MOCK_DATA = [
       {
         id: "3",
         name: "sub-category-1",
-        children: [],
+        children: [
+          {
+            id: "5",
+            name: "sub-category-3",
+            children: [],
+          },
+        ],
       },
     ],
   },

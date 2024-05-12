@@ -1,10 +1,10 @@
 import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
 import type { TreeNode } from "$core/types";
-import { safeInsertNode } from "../functions";
+import { safeInsert } from "../functions";
 
-describe("safeInsertNode", async () => {
+describe("safeInsert", async () => {
   beforeAll(() => {
-    vi.fn().mockImplementation(safeInsertNode);
+    vi.fn().mockImplementation(safeInsert);
   });
 
   afterAll(() => {
@@ -13,7 +13,7 @@ describe("safeInsertNode", async () => {
 
   const { default: CATEGORIES } = await vi.importActual<{ default: TreeNode[] }>("$core/__mocks__");
 
-  it("throws an error when parent node is not found", () => {
+  it("returns original data when parent node is not found", () => {
     const emptyTree: TreeNode[] = [];
 
     const node = {
@@ -22,17 +22,17 @@ describe("safeInsertNode", async () => {
       children: [],
     };
 
-    expect(safeInsertNode(emptyTree, "3", node)).toStrictEqual(emptyTree);
+    expect(safeInsert(emptyTree, "3", node)).toStrictEqual(emptyTree);
   });
 
   it("returns updated tree including the inserted node at first level of tree within null destId", () => {
     const node = {
-      id: "5",
-      name: "category-5",
+      id: "6",
+      name: "sub-category-root",
       children: [],
     };
 
-    expect(safeInsertNode(CATEGORIES, null, node)).toStrictEqual([
+    expect(safeInsert(CATEGORIES, null, node)).toStrictEqual([
       {
         id: "1",
         name: "category-1",
@@ -40,7 +40,13 @@ describe("safeInsertNode", async () => {
           {
             id: "3",
             name: "sub-category-1",
-            children: [],
+            children: [
+              {
+                id: "5",
+                name: "sub-category-3",
+                children: [],
+              },
+            ],
           },
         ],
       },
@@ -56,37 +62,38 @@ describe("safeInsertNode", async () => {
         ],
       },
       {
-        id: "5",
-        name: "category-5",
+        id: "6",
+        name: "sub-category-root",
         children: [],
       },
     ]);
 
-    expect(safeInsertNode(CATEGORIES, null, node)).toMatchSnapshot();
+    expect(safeInsert(CATEGORIES, null, node)).toMatchSnapshot();
   });
 
   it("returns updated tree including the inserted node", () => {
     const node1 = {
       id: "10",
-      name: "category-3",
+      name: "sub-category-3",
       children: [],
     };
 
     const node2 = {
       id: "20",
-      name: "category-10",
+      name: "sub-category-10",
       children: [],
     };
 
-    expect(safeInsertNode(CATEGORIES, "3", node1)).toMatchSnapshot();
+    expect(safeInsert(CATEGORIES, "3", node1)).toMatchSnapshot();
 
-    expect(safeInsertNode(CATEGORIES, "10", node2)).toStrictEqual(CATEGORIES);
+    expect(safeInsert(CATEGORIES, "10", node2)).toStrictEqual(CATEGORIES);
 
-    safeInsertNode(CATEGORIES, "3", node2, (newTree) => {
+    safeInsert(CATEGORIES, "3", node2, (newTree, error) => {
+      expect(error).toBeUndefined();
       expect(newTree).toMatchSnapshot();
     });
 
-    safeInsertNode(CATEGORIES, "10", node2, (newTree, error) => {
+    safeInsert(CATEGORIES, "10", node2, (newTree, error) => {
       expect(newTree).toStrictEqual(CATEGORIES);
       expect(error).toStrictEqual(new Error("cannot found the parent node within given destId."));
     });
