@@ -14,7 +14,9 @@
     "test": "vitest --config ./vitest.config.ts",
     "build:core": "pnpm -r --filter='./packages/core' run build && wait-on packages/core/dist/main.d.ts && tsx scripts/prerelease-core.ts",
     "build:react": "pnpm -r --filter='./packages/react' run build && wait-on packages/react/dist/main.d.ts && tsx scripts/prerelease-react.ts",
-    "deploy:react": "pnpm --filter='./packages/react' --prod deploy packages/react/bundle",
+    "before-deploy": "rimraf packages/react/build && pnpm build:react",
+    "after-deploy": "wait-on packages/react/build/dist/main.d.ts && tsx scripts/prerelease-react.ts",
+    "deploy:react": "pnpm before-deploy && pnpm --filter='./packages/react' --prod deploy packages/react/build && pnpm after-deploy",
     "build": "pnpm build:core && pnpm build:react",
     "dev": "pnpm -r --filter='./packages/react' run dev",
     "release": "pnpm build && tsx scripts/release.ts"
@@ -30,6 +32,7 @@
     "execa": "9.1.0",
     "fast-glob": "3.3.2",
     "tsx": "4.10.2",
+    "rimraf": "5.0.7",
     "@types/node": "20.12.11"
   },
   "packageManager": "pnpm@8.15.5"
