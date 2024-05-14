@@ -29,13 +29,13 @@ jobs:
           run_install: false
 
       - name: Install dependencies
-        run: pnpm install --no-frozen-lockfile
+        run: pnpm install
 
       - name: Tests
         run: pnpm test
 
       - name: Build React Package
-        run: pnpm deploy:react
+        run: pnpm build:react
 
       - name: Publish React Package
         run: pnpm publish --no-git-checks --publish-branch main --access public --filter "@categorizr/react"

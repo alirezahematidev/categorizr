@@ -62,6 +62,9 @@ importers:
 
   packages/react:
     dependencies:
+      '@categorizr/core':
+        specifier: ^0.0.1
+        version: link:../core
       react:
         specifier: ^18.2.0
         version: 18.3.1
@@ -69,9 +72,6 @@ importers:
         specifier: ^18.2.0
         version: 18.3.1(react@18.3.1)
     devDependencies:
-      '@categorizr/core':
-        specifier: ^0.0.1
-        version: link:../core
       '@types/react':
         specifier: ^18.2.66
         version: 18.3.2
@@ -99,7 +99,6 @@ importers:
       vite-plugin-dts:
         specifier: 3.9.1
         version: 3.9.1(@types/node@20.12.11)(rollup@4.17.2)(typescript@5.4.5)(vite@5.2.11)
-    publishDirectory: build
 
 packages:
 

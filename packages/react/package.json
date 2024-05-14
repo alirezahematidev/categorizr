@@ -1,6 +1,6 @@
 {
   "name": "@categorizr/react",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "type": "module",
   "author": "Alireza Hemati",
   "description": "A superpower tool to manage and handle nested tree data in react",
@@ -35,8 +35,7 @@
     "url": "https://github.com/alirezahematidev/categorizr/issues"
   },
   "publishConfig": {
-    "access": "public",
-    "directory": "build"
+    "access": "public"
   },
   "homepage": "https://github.com/alirezahematidev/categorizr#readme",
   "scripts": {
@@ -46,10 +45,10 @@
   },
   "dependencies": {
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "@categorizr/core": "^0.0.1"
   },
   "devDependencies": {
-    "@categorizr/core": "^0.0.1",
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",
     "@typescript-eslint/eslint-plugin": "^7.2.0",
