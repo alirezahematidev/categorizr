@@ -4,10 +4,6 @@ settings:
   autoInstallPeers: false
   excludeLinksFromLockfile: false
 
-overrides:
-  '@categorizr/core': workspace:*
-  '@categorizr/react': workspace:*
-
 importers:
 
   .:
@@ -71,7 +67,7 @@ importers:
         version: 18.3.1(react@18.3.1)
     devDependencies:
       '@categorizr/core':
-        specifier: workspace:*
+        specifier: ^0.0.1
         version: link:../core
       '@types/react':
         specifier: ^18.2.66
