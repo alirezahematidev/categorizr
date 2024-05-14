@@ -1,12 +1,13 @@
 import { insert } from "./insert";
 import { remove } from "./remove";
-import { Callback, TreeNode } from "$core/types";
-import { containsNode, findNode, findParent } from "../helpers/internal";
-import { exception } from "../helpers";
+import { Callback, TreeNode } from "$core/index";
+import { containsNode, exception, findNode, findParent, nonUniqueTreeWarning } from "../helpers";
 
 function move<T extends TreeNode>(tree: readonly T[], from: string, to: string | null): T[];
 function move<T extends TreeNode>(tree: readonly T[], from: string, to: string | null, callback: Callback<T>): void;
 function move<T extends TreeNode>(tree: readonly T[], from: string, to: string | null, callback?: Callback<T>) {
+  nonUniqueTreeWarning(tree, "move");
+
   const node = findNode(tree, from);
 
   if (containsNode(tree, from, to)) throw exception("move", "Cannot move the node into its own descendants.");

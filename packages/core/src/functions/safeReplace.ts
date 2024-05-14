@@ -1,20 +1,21 @@
-import { CallbackWithError, Replacer, TreeNode } from "$core/types";
-import { clone, exception, modifyWith, warning } from "../helpers";
-import { findNode, findParent } from "../helpers/internal";
+import { CallbackWithError, Replacer, TreeNode } from "$core/index";
+import { clone, exception, findNode, findParent, modifyWith, error, nonUniqueTreeWarning } from "../helpers";
 
 function safeReplace<T extends TreeNode>(tree: readonly T[], target: string, replacer: Replacer<T>): T[];
 function safeReplace<T extends TreeNode>(tree: readonly T[], target: string, replacer: Replacer<T>, callback: CallbackWithError<T>): void;
 function safeReplace<T extends TreeNode>(tree: readonly T[], target: string, replacer: Replacer<T>, callback?: CallbackWithError<T>) {
+  nonUniqueTreeWarning(tree, "safeReplace");
+
   const cloneTree = clone(tree);
 
   const targetNode = findNode(cloneTree, target);
 
   if (!targetNode) {
-    warning("safeReplace", "Cannot found the target node with the given id.");
+    error("safeReplace", "Cannot found the target node with the given id.");
 
     if (callback) return void callback(tree, exception("safeReplace", "Cannot found the target node with the given id."));
 
-    return tree;
+    return [...tree];
   }
 
   if (!replacer.id) replacer.id = target;

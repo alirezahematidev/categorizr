@@ -1,20 +1,21 @@
-import { CallbackWithError, TreeNode } from "$core/types";
-import { clone, exception, modifyWith, warning } from "../helpers";
-import { findNode, findParent } from "../helpers/internal";
+import { CallbackWithError, TreeNode } from "$core/index";
+import { clone, exception, findNode, findParent, modifyWith, error, nonUniqueTreeWarning } from "../helpers";
 
 function safeRemove<T extends TreeNode>(tree: readonly T[], id: string): T[];
 function safeRemove<T extends TreeNode>(tree: readonly T[], id: string, callback: CallbackWithError<T>): void;
 function safeRemove<T extends TreeNode>(tree: readonly T[], id: string, callback?: CallbackWithError<T>) {
+  nonUniqueTreeWarning(tree, "safeRemove");
+
   const cloneTree = clone(tree);
 
   const targetNode = findNode(cloneTree, id);
 
   if (!targetNode) {
-    warning("safeRemove", "Cannot found the node with the given id.");
+    error("safeRemove", "Cannot found the node with the given id.");
 
     if (callback) return void callback(tree, exception("safeRemove", "Cannot found the node with the given id."));
 
-    return tree;
+    return [...tree];
   }
 
   const parentNode = findParent(cloneTree, targetNode);

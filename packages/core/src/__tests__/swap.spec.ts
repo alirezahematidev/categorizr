@@ -1,6 +1,6 @@
 import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
-import type { TreeNode } from "$core/types";
 import { swap } from "../functions";
+import { TreeNode } from "$core/index";
 
 describe("swap", async () => {
   beforeAll(() => {
@@ -11,22 +11,22 @@ describe("swap", async () => {
     vi.resetAllMocks();
   });
 
-  const { default: CATEGORIES } = await vi.importActual<{ default: TreeNode[] }>("$core/__mocks__");
+  const { TREE_DATA } = await vi.importActual<{ TREE_DATA: TreeNode[] }>("$core/__mocks__");
 
   it("throws an error when the node is not found", () => {
     const emptyTree: TreeNode[] = [];
 
     expect(() => swap(emptyTree, "1", "2")).toThrow(new Error("[Categorizr:swap] Cannot found the from/to node with the given ids."));
-    expect(() => swap(CATEGORIES, "1", "10")).toThrow(new Error("[Categorizr:swap] Cannot found the from/to node with the given ids."));
+    expect(() => swap(TREE_DATA, "1", "10")).toThrow(new Error("[Categorizr:swap] Cannot found the from/to node with the given ids."));
   });
 
   it("throws an error when the node is descendant of the other", () => {
-    expect(() => swap(CATEGORIES, "3", "5")).toThrow(new Error("[Categorizr:swap] Nodes cannot be swapped as one is a descendant of the other."));
-    expect(() => swap(CATEGORIES, "5", "3")).toThrow(new Error("[Categorizr:swap] Nodes cannot be swapped as one is a descendant of the other."));
+    expect(() => swap(TREE_DATA, "3", "5")).toThrow(new Error("[Categorizr:swap] Nodes cannot be swapped as one is a descendant of the other."));
+    expect(() => swap(TREE_DATA, "5", "3")).toThrow(new Error("[Categorizr:swap] Nodes cannot be swapped as one is a descendant of the other."));
   });
 
   it("returns updated tree data within the swapped nodes", () => {
-    expect(swap(CATEGORIES, "3", "4")).toStrictEqual([
+    expect(swap(TREE_DATA, "3", "4")).toStrictEqual([
       {
         id: "1",
         name: "category-1",
@@ -57,19 +57,19 @@ describe("swap", async () => {
       },
     ]);
 
-    expect(swap(CATEGORIES, "3", "4")).toMatchSnapshot();
+    expect(swap(TREE_DATA, "3", "4")).toMatchSnapshot();
 
-    swap(CATEGORIES, "3", "4", (newTree) => {
+    swap(TREE_DATA, "3", "4", (newTree) => {
       expect(newTree).toMatchSnapshot();
     });
   });
 
   it("returns original tree data when swapped node with itself", () => {
-    expect(swap(CATEGORIES, "3", "3")).toStrictEqual(CATEGORIES);
+    expect(swap(TREE_DATA, "3", "3")).toStrictEqual(TREE_DATA);
   });
 
   it("returns original tree data when swapped nodes in same depth", () => {
-    expect(swap(CATEGORIES, "1", "2")).toStrictEqual([
+    expect(swap(TREE_DATA, "1", "2")).toStrictEqual([
       {
         id: "2",
         name: "category-2",
@@ -100,9 +100,9 @@ describe("swap", async () => {
       },
     ]);
 
-    expect(swap(CATEGORIES, "1", "2")).toMatchSnapshot();
+    expect(swap(TREE_DATA, "1", "2")).toMatchSnapshot();
 
-    swap(CATEGORIES, "1", "2", (newTree) => {
+    swap(TREE_DATA, "1", "2", (newTree) => {
       expect(newTree).toMatchSnapshot();
     });
   });

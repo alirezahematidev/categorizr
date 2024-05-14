@@ -1,6 +1,6 @@
 import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
-import type { TreeNode } from "$core/types";
 import { safeInsert } from "../functions";
+import { TreeNode } from "$core/index";
 
 describe("safeInsert", async () => {
   beforeAll(() => {
@@ -11,7 +11,7 @@ describe("safeInsert", async () => {
     vi.resetAllMocks();
   });
 
-  const { default: CATEGORIES } = await vi.importActual<{ default: TreeNode[] }>("$core/__mocks__");
+  const { TREE_DATA } = await vi.importActual<{ TREE_DATA: TreeNode[] }>("$core/__mocks__");
 
   it("returns original data when parent node is not found", () => {
     const emptyTree: TreeNode[] = [];
@@ -37,7 +37,7 @@ describe("safeInsert", async () => {
       children: [],
     };
 
-    expect(safeInsert(CATEGORIES, null, node)).toStrictEqual([
+    expect(safeInsert(TREE_DATA, null, node)).toStrictEqual([
       {
         id: "1",
         name: "category-1",
@@ -73,7 +73,7 @@ describe("safeInsert", async () => {
       },
     ]);
 
-    expect(safeInsert(CATEGORIES, null, node)).toMatchSnapshot();
+    expect(safeInsert(TREE_DATA, null, node)).toMatchSnapshot();
   });
 
   it("returns updated tree including the inserted node", () => {
@@ -89,17 +89,17 @@ describe("safeInsert", async () => {
       children: [],
     };
 
-    expect(safeInsert(CATEGORIES, "3", node1)).toMatchSnapshot();
+    expect(safeInsert(TREE_DATA, "3", node1)).toMatchSnapshot();
 
-    expect(safeInsert(CATEGORIES, "10", node2)).toStrictEqual(CATEGORIES);
+    expect(safeInsert(TREE_DATA, "10", node2)).toStrictEqual(TREE_DATA);
 
-    safeInsert(CATEGORIES, "3", node2, (newTree, error) => {
+    safeInsert(TREE_DATA, "3", node2, (newTree, error) => {
       expect(error).toBeUndefined();
       expect(newTree).toMatchSnapshot();
     });
 
-    safeInsert(CATEGORIES, "10", node2, (newTree, error) => {
-      expect(newTree).toStrictEqual(CATEGORIES);
+    safeInsert(TREE_DATA, "10", node2, (newTree, error) => {
+      expect(newTree).toStrictEqual(TREE_DATA);
       expect(error).toStrictEqual(new Error("[Categorizr:safeInsert] Cannot found the destination node with the given id."));
     });
   });

@@ -16,8 +16,6 @@
     "dev": "pnpm -r --filter='./packages/react' run dev"
   },
   "devDependencies": {
-    "@categorizr/core": "workspace:*",
-    "@categorizr/react": "workspace:*",
     "typescript": "^5.2.2",
     "vite": "^5.2.0",
     "vitest": "1.6.0",

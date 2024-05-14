@@ -1,6 +1,6 @@
 import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
-import type { TreeNode } from "$core/types";
 import { remove } from "../functions";
+import { TreeNode } from "$core/index";
 
 describe("remove", async () => {
   beforeAll(() => {
@@ -11,19 +11,19 @@ describe("remove", async () => {
     vi.resetAllMocks();
   });
 
-  const { default: CATEGORIES } = await vi.importActual<{ default: TreeNode[] }>("$core/__mocks__");
+  const { TREE_DATA } = await vi.importActual<{ TREE_DATA: TreeNode[] }>("$core/__mocks__");
 
   it("throws an error when parent node is not found", () => {
     const emptyTree: TreeNode[] = [];
 
     expect(() => remove(emptyTree, "1")).toThrow(new Error("[Categorizr:remove] Cannot found the node with the given id"));
-    expect(() => remove(CATEGORIES, "10")).toThrow(new Error("[Categorizr:remove] Cannot found the node with the given id"));
+    expect(() => remove(TREE_DATA, "10")).toThrow(new Error("[Categorizr:remove] Cannot found the node with the given id"));
   });
 
   it("removes the node from tree correctly", () => {
-    const copy = [...CATEGORIES];
+    const copy = [...TREE_DATA];
 
-    expect(remove(CATEGORIES, "1")).toStrictEqual([
+    expect(remove(TREE_DATA, "1")).toStrictEqual([
       {
         id: "2",
         name: "category-2",
@@ -37,7 +37,7 @@ describe("remove", async () => {
       },
     ]);
 
-    remove(CATEGORIES, "1", (newTree) => {
+    remove(TREE_DATA, "1", (newTree) => {
       expect(newTree).toStrictEqual([
         {
           id: "2",
@@ -53,9 +53,9 @@ describe("remove", async () => {
       ]);
     });
 
-    expect(CATEGORIES).toStrictEqual(copy);
+    expect(TREE_DATA).toStrictEqual(copy);
 
-    expect(CATEGORIES).not.toStrictEqual([
+    expect(TREE_DATA).not.toStrictEqual([
       {
         id: "2",
         name: "category-2",
@@ -69,7 +69,7 @@ describe("remove", async () => {
       },
     ]);
 
-    expect(remove(CATEGORIES, "4")).toStrictEqual([
+    expect(remove(TREE_DATA, "4")).toStrictEqual([
       {
         id: "1",
         name: "category-1",
@@ -94,9 +94,9 @@ describe("remove", async () => {
       },
     ]);
 
-    expect(CATEGORIES).toStrictEqual(copy);
+    expect(TREE_DATA).toStrictEqual(copy);
 
-    expect(CATEGORIES).not.toStrictEqual([
+    expect(TREE_DATA).not.toStrictEqual([
       {
         id: "1",
         name: "category-1",
@@ -121,9 +121,9 @@ describe("remove", async () => {
       },
     ]);
 
-    expect(remove(CATEGORIES, "1")).toMatchSnapshot();
+    expect(remove(TREE_DATA, "1")).toMatchSnapshot();
 
-    remove(CATEGORIES, "1", (newTree) => {
+    remove(TREE_DATA, "1", (newTree) => {
       expect(newTree).toMatchSnapshot();
     });
   });

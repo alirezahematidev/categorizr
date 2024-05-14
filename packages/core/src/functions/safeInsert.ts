@@ -1,10 +1,11 @@
-import { CallbackWithError, TreeNode } from "$core/types";
-import { clone, exception, warning } from "../helpers";
-import { findNode } from "../helpers/internal";
+import { CallbackWithError, TreeNode } from "$core/index";
+import { clone, exception, findNode, error, nonUniqueTreeWarning } from "../helpers";
 
 function safeInsert<T extends TreeNode>(tree: readonly T[], destination: string | null, node: T): T[];
 function safeInsert<T extends TreeNode>(tree: readonly T[], destination: string | null, node: T, callback: CallbackWithError<T>): void;
 function safeInsert<T extends TreeNode>(tree: readonly T[], destination: string | null, node: T, callback?: CallbackWithError<T>) {
+  nonUniqueTreeWarning(tree, "safeInsert");
+
   const cloneTree = clone(tree);
 
   if (destination === null) {
@@ -16,11 +17,11 @@ function safeInsert<T extends TreeNode>(tree: readonly T[], destination: string 
   const destNode = findNode(cloneTree, destination);
 
   if (!destNode) {
-    warning("safeInsert", "Cannot found the destination node with the given id.");
+    error("safeInsert", "Cannot found the destination node with the given id.");
 
     if (callback) return void callback(tree, exception("safeInsert", "Cannot found the destination node with the given id."));
 
-    return tree;
+    return [...tree];
   }
 
   if (!destNode.children) destNode.children = [];

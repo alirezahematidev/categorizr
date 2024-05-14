@@ -1,4 +1,4 @@
-import { MaybeNode, TreeNode } from "$core/types";
+import { MaybeNode, TreeNode } from "$core/index";
 
 export function findNode<T extends TreeNode>(tree: readonly T[], id: string): MaybeNode<T> {
   for (const node of tree) {

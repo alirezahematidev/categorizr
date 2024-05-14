@@ -1,5 +1,5 @@
-import { MaybeNode, TreeNode } from "$core/types";
-import { noChildren } from "..";
+import { MaybeNode, TreeNode } from "$core/index";
+import { noChildren } from ".";
 
 export function findParent<T extends TreeNode>(tree: readonly T[], node: T): MaybeNode<T> {
   for (const branch of tree) {

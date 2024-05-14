@@ -1,10 +1,11 @@
-import { Callback, Replacer, TreeNode } from "$core/types";
-import { clone, exception, modifyWith } from "../helpers";
-import { findNode, findParent } from "../helpers/internal";
+import { Callback, Replacer, TreeNode } from "$core/index";
+import { clone, exception, findNode, findParent, modifyWith, nonUniqueTreeWarning } from "../helpers";
 
 function replace<T extends TreeNode>(tree: readonly T[], target: string, replacer: Replacer<T>): T[];
 function replace<T extends TreeNode>(tree: readonly T[], target: string, replacer: Replacer<T>, callback: Callback<T>): void;
 function replace<T extends TreeNode>(tree: readonly T[], target: string, replacer: Replacer<T>, callback?: Callback<T>) {
+  nonUniqueTreeWarning(tree, "replace");
+
   const cloneTree = clone(tree);
 
   const targetNode = findNode(cloneTree, target);

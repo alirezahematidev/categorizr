@@ -1,8 +1,14 @@
-export interface TreeNode {
+export type TreeNode = {
   id: string;
   children: TreeNode[];
   [property: string]: any;
-}
+};
+
+export type FlatNode = {
+  id: string;
+  parentId: string | null;
+  [property: string]: any;
+};
 
 export type MaybeNode<T extends TreeNode> = T | undefined;
 

@@ -1,6 +1,6 @@
 import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
-import type { TreeNode } from "$core/types";
 import { replace } from "../functions";
+import { TreeNode } from "$core/index";
 
 describe("replace", async () => {
   beforeAll(() => {
@@ -11,18 +11,18 @@ describe("replace", async () => {
     vi.resetAllMocks();
   });
 
-  const { default: CATEGORIES } = await vi.importActual<{ default: TreeNode[] }>("$core/__mocks__");
+  const { TREE_DATA } = await vi.importActual<{ TREE_DATA: TreeNode[] }>("$core/__mocks__");
 
   it("throws an error when node is not found", () => {
     const emptyTree: TreeNode[] = [];
 
     expect(() => replace(emptyTree, "1", {})).toThrow(new Error("[Categorizr:replace] Cannot found the target node with the given id"));
-    expect(() => replace(CATEGORIES, "10", {})).toThrow(new Error("[Categorizr:replace] Cannot found the target node with the given id"));
+    expect(() => replace(TREE_DATA, "10", {})).toThrow(new Error("[Categorizr:replace] Cannot found the target node with the given id"));
   });
 
   it("returns updated tree within replaced node that has id", () => {
     expect(
-      replace(CATEGORIES, "5", {
+      replace(TREE_DATA, "5", {
         id: "10",
         name: "new node",
         children: [],
@@ -59,7 +59,7 @@ describe("replace", async () => {
     ]);
 
     expect(
-      replace(CATEGORIES, "5", {
+      replace(TREE_DATA, "5", {
         id: "10",
         name: "new node",
         children: [],
@@ -67,7 +67,7 @@ describe("replace", async () => {
     ).toMatchSnapshot();
 
     replace(
-      CATEGORIES,
+      TREE_DATA,
       "5",
       {
         id: "10",
@@ -82,7 +82,7 @@ describe("replace", async () => {
 
   it("returns updated tree within replaced node that has not id", () => {
     expect(
-      replace(CATEGORIES, "5", {
+      replace(TREE_DATA, "5", {
         name: "new node",
         children: [],
       })
@@ -118,14 +118,14 @@ describe("replace", async () => {
     ]);
 
     expect(
-      replace(CATEGORIES, "5", {
+      replace(TREE_DATA, "5", {
         name: "new node",
         children: [],
       })
     ).toMatchSnapshot();
 
     replace(
-      CATEGORIES,
+      TREE_DATA,
       "5",
       {
         name: "new node",
@@ -139,7 +139,7 @@ describe("replace", async () => {
 
   it("returns updated tree within replaced node that placed in first depth", () => {
     expect(
-      replace(CATEGORIES, "1", {
+      replace(TREE_DATA, "1", {
         id: "10",
         name: "new node",
         children: [],
@@ -164,7 +164,7 @@ describe("replace", async () => {
     ]);
 
     expect(
-      replace(CATEGORIES, "1", {
+      replace(TREE_DATA, "1", {
         id: "10",
         name: "new node",
         children: [],
@@ -172,7 +172,7 @@ describe("replace", async () => {
     ).toMatchSnapshot();
 
     replace(
-      CATEGORIES,
+      TREE_DATA,
       "1",
       {
         id: "10",

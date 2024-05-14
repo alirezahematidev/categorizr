@@ -1,6 +1,6 @@
 import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
-import type { TreeNode } from "$core/types";
 import { insert } from "../functions";
+import { TreeNode } from "$core/index";
 
 describe("insert", async () => {
   beforeAll(() => {
@@ -11,7 +11,7 @@ describe("insert", async () => {
     vi.resetAllMocks();
   });
 
-  const { default: CATEGORIES } = await vi.importActual<{ default: TreeNode[] }>("$core/__mocks__");
+  const { TREE_DATA } = await vi.importActual<{ TREE_DATA: TreeNode[] }>("$core/__mocks__");
 
   it("throws an error when parent node is not found", () => {
     const emptyTree: TreeNode[] = [];
@@ -32,7 +32,7 @@ describe("insert", async () => {
       children: [],
     };
 
-    expect(insert(CATEGORIES, null, node)).toStrictEqual([
+    expect(insert(TREE_DATA, null, node)).toStrictEqual([
       {
         id: "1",
         name: "category-1",
@@ -68,7 +68,7 @@ describe("insert", async () => {
       },
     ]);
 
-    expect(insert(CATEGORIES, null, node)).toMatchSnapshot();
+    expect(insert(TREE_DATA, null, node)).toMatchSnapshot();
   });
 
   it("returns updated tree including the inserted node", () => {
@@ -84,11 +84,11 @@ describe("insert", async () => {
       children: [],
     };
 
-    expect(insert(CATEGORIES, "3", node1)).toMatchSnapshot();
+    expect(insert(TREE_DATA, "3", node1)).toMatchSnapshot();
 
-    expect(() => insert(CATEGORIES, "10", node2)).toThrow(new Error("[Categorizr:insert] Cannot find the destination node with the given id."));
+    expect(() => insert(TREE_DATA, "10", node2)).toThrow(new Error("[Categorizr:insert] Cannot find the destination node with the given id."));
 
-    insert(CATEGORIES, "3", node2, (newTree) => {
+    insert(TREE_DATA, "3", node2, (newTree) => {
       expect(newTree).toMatchSnapshot();
     });
   });

@@ -1,10 +1,11 @@
-import { Callback, TreeNode } from "$core/types";
-import { clone, exception, modifyWith } from "../helpers";
-import { findNode, findParent } from "../helpers/internal";
+import { Callback, TreeNode } from "$core/index";
+import { clone, exception, findNode, findParent, modifyWith, nonUniqueTreeWarning } from "../helpers";
 
 function remove<T extends TreeNode>(tree: readonly T[], id: string): T[];
 function remove<T extends TreeNode>(tree: readonly T[], id: string, callback: Callback<T>): void;
 function remove<T extends TreeNode>(tree: readonly T[], id: string, callback?: Callback<T>) {
+  nonUniqueTreeWarning(tree, "remove");
+
   const cloneTree = clone(tree);
 
   const node = findNode(cloneTree, id);

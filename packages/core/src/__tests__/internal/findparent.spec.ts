@@ -1,6 +1,6 @@
 import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
-import type { TreeNode } from "$core/types";
-import { findParent } from "../../helpers/internal";
+import { TreeNode } from "$core/index";
+import { findParent } from "../../helpers";
 
 describe("findParent", async () => {
   beforeAll(() => {
@@ -11,7 +11,7 @@ describe("findParent", async () => {
     vi.resetAllMocks();
   });
 
-  const { default: CATEGORIES } = await vi.importActual<{ default: TreeNode[] }>("$core/__mocks__");
+  const { TREE_DATA } = await vi.importActual<{ TREE_DATA: TreeNode[] }>("$core/__mocks__");
 
   it("returns undefined for empty tree", () => {
     const emptyTree: TreeNode[] = [];
@@ -32,7 +32,7 @@ describe("findParent", async () => {
       children: [],
     };
 
-    expect(findParent(CATEGORIES, node)).toBeUndefined();
+    expect(findParent(TREE_DATA, node)).toBeUndefined();
   });
 
   it("returns correct parent node for node with children", async () => {
@@ -48,7 +48,7 @@ describe("findParent", async () => {
       ],
     };
 
-    expect(findParent(CATEGORIES, node)).toMatchSnapshot();
+    expect(findParent(TREE_DATA, node)).toMatchSnapshot();
   });
 
   it("returns correct parent node for node with children", async () => {
@@ -58,6 +58,6 @@ describe("findParent", async () => {
       children: [],
     };
 
-    expect(findParent(CATEGORIES, node)).toMatchSnapshot();
+    expect(findParent(TREE_DATA, node)).toMatchSnapshot();
   });
 });

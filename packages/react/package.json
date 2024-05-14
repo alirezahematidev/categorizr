@@ -2,6 +2,23 @@
   "name": "@categorizr/react",
   "version": "0.0.0",
   "type": "module",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/categorizr-react.js",
+  "types": "./dist/main.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/main.d.ts",
+        "default": "./dist/categorizr-react.js"
+      },
+      "require": {
+        "types": "./dist/main.d.cts",
+        "default": "./dist/categorizr-react.cjs"
+      }
+    }
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
@@ -12,11 +29,13 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@categorizr/core": "workspace:*",
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",
     "@typescript-eslint/eslint-plugin": "^7.2.0",
     "@typescript-eslint/parser": "^7.2.0",
     "@vitejs/plugin-react-swc": "^3.5.0",
+    "vite-plugin-dts": "3.9.1",
     "eslint": "^8.57.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.6"
