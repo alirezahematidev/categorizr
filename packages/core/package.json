@@ -1,6 +1,6 @@
 {
   "name": "@categorizr/core",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "type": "module",
   "files": [
     "dist"
@@ -19,6 +19,17 @@
       }
     }
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alirezahematidev/categorizr.git"
+  },
+  "bugs": {
+    "url": "https://github.com/alirezahematidev/categorizr/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "homepage": "https://github.com/alirezahematidev/categorizr#readme",
   "scripts": {
     "build": "tsc && vite build"
   },
