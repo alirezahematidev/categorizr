@@ -34,6 +34,9 @@ jobs:
       - name: Tests
         run: pnpm test
 
+      - name: Build React Package
+        run: pnpm --prod --filter @categorizr/react deploy packages/react/build
+
       - name: Publish React Package
         run: pnpm publish --no-git-checks --publish-branch main --access public --filter "@categorizr/react"
         env:

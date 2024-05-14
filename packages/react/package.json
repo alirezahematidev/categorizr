@@ -1,6 +1,6 @@
 {
   "name": "@categorizr/react",
-  "version": "0.0.17",
+  "version": "0.0.18",
   "type": "module",
   "author": "Alireza Hemati",
   "description": "A superpower tool to manage and handle nested tree data in react",
@@ -17,14 +17,8 @@
   "types": "./dist/main.d.ts",
   "exports": {
     ".": {
-      "import": {
-        "types": "./dist/main.d.ts",
-        "default": "./dist/categorizr-react.js"
-      },
-      "require": {
-        "types": "./dist/main.d.cts",
-        "default": "./dist/categorizr-react.cjs"
-      }
+      "types": "./dist/main.d.ts",
+      "default": "./dist/categorizr-react.js"
     }
   },
   "repository": {
@@ -35,7 +29,8 @@
     "url": "https://github.com/alirezahematidev/categorizr/issues"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "directory": "build"
   },
   "homepage": "https://github.com/alirezahematidev/categorizr#readme",
   "scripts": {

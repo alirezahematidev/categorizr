@@ -11,7 +11,7 @@ export default defineConfig({
   build: {
     lib: {
       entry: path.resolve(__dirname, "src/main.ts"),
-      formats: ["cjs", "es"],
+      formats: ["es"],
       fileName: "categorizr-react",
     },
   },
