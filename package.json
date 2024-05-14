@@ -3,9 +3,6 @@
   "version": "0.0.0",
   "type": "module",
   "private": true,
-  "workspaces": [
-    "packages/*"
-  ],
   "engines": {
     "node": "^18.0.0 || >=20.0.0"
   },

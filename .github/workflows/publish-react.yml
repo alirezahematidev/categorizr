@@ -26,7 +26,13 @@ jobs:
         name: Install pnpm
         with:
           version: 8
-          run_install: true
+          run_install: false
+
+      - name: Clear Cache
+        run: pnpm store prune
+
+      - name: Install dependencies
+        run: pnpm install --ignore-workspace --no-frozen-lockfile
 
       - name: Tests
         run: pnpm test
