@@ -26,10 +26,7 @@ jobs:
         name: Install pnpm
         with:
           version: 8
-          run_install: false
-
-      - name: Install dependencies
-        run: pnpm install
+          run_install: true
 
       - name: Tests
         run: pnpm test
