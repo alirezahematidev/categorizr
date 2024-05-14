@@ -23,7 +23,7 @@ jobs:
           registry-url: "https://registry.npmjs.org"
 
       - name: Install Package Manager
-        run: npm i pnpm@8.15.5
+        run: yarn i pnpm@8.15.5
 
       - name: Install dependencies
         run: pnpm install
