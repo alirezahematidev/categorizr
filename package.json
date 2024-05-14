@@ -10,7 +10,7 @@
     "preinstall": "npx only-allow pnpm",
     "test": "vitest --config ./vitest.config.ts",
     "build:core": "pnpm -r --filter='./packages/core' run build",
-    "build:react": "pnpm -r --filter='./packages/react' run build",
+    "build:react": "pnpm -r --filter='./packages/react' run build && tsx scripts/exportable.ts",
     "before-deploy": "rimraf packages/react/build",
     "after-deploy": "wait-on packages/react/build/dist/main.d.ts && tsx scripts/prerelease-react.ts",
     "deploy:react": "pnpm before-deploy && pnpm --filter='./packages/react' --prod deploy packages/react/build && pnpm after-deploy",
@@ -19,18 +19,20 @@
     "release": "pnpm build && tsx scripts/release.ts"
   },
   "devDependencies": {
-    "typescript": "^5.2.2",
-    "vite": "^5.2.0",
-    "vitest": "1.6.0",
-    "vite-tsconfig-paths": "4.3.2",
+    "@pnpm/exportable-manifest": "^6.0.1",
+    "@pnpm/read-project-manifest": "^6.0.1",
+    "@types/node": "20.12.11",
     "@vitejs/release-scripts": "1.3.1",
     "conventional-changelog-cli": "4.1.0",
-    "wait-on": "7.2.0",
     "execa": "9.1.0",
     "fast-glob": "3.3.2",
-    "tsx": "4.10.2",
     "rimraf": "5.0.7",
-    "@types/node": "20.12.11"
+    "tsx": "4.10.2",
+    "typescript": "^5.2.2",
+    "vite": "^5.2.0",
+    "vite-tsconfig-paths": "4.3.2",
+    "vitest": "1.6.0",
+    "wait-on": "7.2.0"
   },
   "packageManager": "pnpm@8.15.5"
 }
