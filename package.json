@@ -12,7 +12,9 @@
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "test": "vitest --config ./vitest.config.ts",
-    "build": "pnpm -r --parallel --filter='./packages/*' run build && wait-on packages/core/dist/main.d.ts packages/react/dist/main.d.ts && tsx scripts/prerelease.ts",
+    "build:core": "pnpm -r --filter='./packages/core' run build && wait-on packages/core/dist/main.d.ts && tsx scripts/prerelease-core.ts",
+    "build:react": "pnpm -r --filter='./packages/react' run build && wait-on packages/react/dist/main.d.ts && tsx scripts/prerelease-react.ts",
+    "build": "pnpm build:core && pnpm build:react",
     "dev": "pnpm -r --filter='./packages/react' run dev",
     "release": "pnpm build && tsx scripts/release.ts"
   },

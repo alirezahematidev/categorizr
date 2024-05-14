@@ -34,10 +34,10 @@ jobs:
       - name: Tests
         run: pnpm test
 
-      - name: Build Package
-        run: pnpm build
+      - name: Build Core Package
+        run: pnpm build:core
 
-      - name: Publish core package
+      - name: Publish Core Package
         run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN_CORE }}
