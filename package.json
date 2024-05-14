@@ -10,6 +10,7 @@
     "node": "^18.0.0 || >=20.0.0"
   },
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
     "test": "vitest --config ./vitest.config.ts",
     "build": "pnpm -r --parallel --filter='./packages/*' run build && wait-on packages/core/dist/main.d.ts packages/react/dist/main.d.ts && tsx scripts/prerelease.ts",
     "dev": "pnpm -r --filter='./packages/react' run dev",
@@ -28,6 +29,7 @@
     "tsx": "4.10.2",
     "@types/node": "20.12.11"
   },
+  "packageManager": "pnpm@8.15.5",
   "pnpm": {
     "overrides": {
       "@categorizr/core": "workspace:*",
