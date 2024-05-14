@@ -70,7 +70,7 @@ importers:
         version: 18.3.1(react@18.3.1)
     devDependencies:
       '@categorizr/core':
-        specifier: ^0.0.1
+        specifier: workspace:*
         version: link:../core
       '@types/react':
         specifier: ^18.2.66
