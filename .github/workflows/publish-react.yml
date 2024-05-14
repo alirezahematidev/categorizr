@@ -38,6 +38,6 @@ jobs:
         run: pnpm build:react
 
       - name: Publish React Package
-        run: npm publish
+        run: pnpm publish --no-git-checks --publish-branch main --access public --filter "@categorizr/react"
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN_REACT }}
