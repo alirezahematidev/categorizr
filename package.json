@@ -2,6 +2,7 @@
   "name": "categorizr-repo",
   "version": "0.0.0",
   "type": "module",
+  "private": true,
   "workspaces": [
     "packages/*"
   ],

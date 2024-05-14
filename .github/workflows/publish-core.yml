@@ -38,6 +38,6 @@ jobs:
         run: pnpm build:core
 
       - name: Publish Core Package
-        run: npm publish --access public --scope=@categorizr
+        run: pnpm publish --recursive --tag core
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN_CORE }}
