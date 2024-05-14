@@ -38,6 +38,6 @@ jobs:
         run: pnpm build:core
 
       - name: Publish Core Package
-        run: npm publish
+        run: npm publish --provenance --access public --scope=@categorizr
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN_CORE }}
