@@ -1,7 +1,15 @@
 {
   "name": "@categorizr/core",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "type": "module",
+  "license": "MIT",
+  "author": "Alireza Hemati",
+  "description": "A superpower tool to manage and handle nested tree data in javascript",
+  "keywords": [
+    "tree",
+    "category",
+    "hierarchy"
+  ],
   "files": [
     "dist"
   ],
