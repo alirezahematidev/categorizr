@@ -10,7 +10,6 @@
     "node": "^18.0.0 || >=20.0.0"
   },
   "scripts": {
-    "preinstall": "npx only-allow pnpm",
     "test": "vitest --config ./vitest.config.ts",
     "build": "pnpm -r --parallel --filter='./packages/*' run build && wait-on packages/core/dist/main.d.ts packages/react/dist/main.d.ts && tsx scripts/prerelease.ts",
     "dev": "pnpm -r --filter='./packages/react' run dev",
