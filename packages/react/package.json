@@ -30,7 +30,7 @@
   },
   "publishConfig": {
     "access": "public",
-    "directory": "packages/react/build"
+    "directory": "dist"
   },
   "homepage": "https://github.com/alirezahematidev/categorizr#readme",
   "scripts": {
