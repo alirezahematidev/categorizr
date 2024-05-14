@@ -1,6 +1,6 @@
 {
   "name": "@categorizr/react",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "type": "module",
   "author": "Alireza Hemati",
   "description": "A superpower tool to manage and handle nested tree data in react",

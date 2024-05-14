@@ -14,7 +14,7 @@
     "test": "vitest --config ./vitest.config.ts",
     "build:core": "pnpm -r --filter='./packages/core' run build && wait-on packages/core/dist/main.d.ts && tsx scripts/prerelease-core.ts",
     "build:react": "pnpm -r --filter='./packages/react' run build && wait-on packages/react/dist/main.d.ts && tsx scripts/prerelease-react.ts",
-    "deploy:react": "pnpm build:react && pnpm --filter='./packages/react' --prod deploy packages/react/bundle",
+    "deploy:react": "pnpm --filter='./packages/react' --prod deploy packages/react/bundle",
     "build": "pnpm build:core && pnpm build:react",
     "dev": "pnpm -r --filter='./packages/react' run dev",
     "release": "pnpm build && tsx scripts/release.ts"
