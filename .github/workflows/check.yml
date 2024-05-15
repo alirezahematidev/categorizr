@@ -1,10 +1,6 @@
-name: Publish Core Package
+name: Check Core Package
 
 on:
-  push:
-    tags:
-      - "core@*"
-
   pull_request:
     types:
       - opened
@@ -17,7 +13,6 @@ jobs:
     permissions:
       contents: read
       id-token: write
-    environment: production-core
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -42,8 +37,3 @@ jobs:
 
       - name: Build Core Package
         run: pnpm build:core
-
-      - name: Publish Core Package
-        run: pnpm publish --no-git-checks --publish-branch main --ignore-scripts --access public -r --filter "@treekit/core"
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN_CORE }}
