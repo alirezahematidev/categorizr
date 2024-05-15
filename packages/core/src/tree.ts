@@ -1,8 +1,8 @@
-import { Callback, CallbackWithError, TreeNode, Replacer } from "$core/index";
+import { Callback, CallbackWithError, TreeNode, Replacer, TreeImpl, TreeLike } from "$core/index";
 import * as functions from "./functions";
 import { nonUniqueTreeWarning, safeError } from "./helpers";
 
-class Tree<T extends TreeNode> {
+class Tree<T extends TreeNode> implements TreeImpl<T> {
   private readonly tree: ReadonlyArray<T> = [];
 
   private currentTree: T[] = [];
@@ -91,9 +91,9 @@ class Tree<T extends TreeNode> {
     return this;
   }
 
-  public insert(destination: string | null, data: T | T[]): typeof this;
-  public insert(destination: string | null, data: T | T[], callback: Callback<T>): void;
-  public insert(destination: string | null, data: T | T[], callback?: Callback<T>) {
+  public insert(destination: string | null, data: TreeLike<T>): typeof this;
+  public insert(destination: string | null, data: TreeLike<T>, callback: Callback<T>): void;
+  public insert(destination: string | null, data: TreeLike<T>, callback?: Callback<T>) {
     if (callback) return void functions.insert(this.tree, destination, data, this.listen(callback));
 
     const update = functions.insert(this.currentTree, destination, data);
@@ -109,9 +109,9 @@ class Tree<T extends TreeNode> {
     return this;
   }
 
-  public safeInsert(destination: string | null, data: T | T[]): typeof this;
-  public safeInsert(destination: string | null, data: T | T[], callback: CallbackWithError<T>): void;
-  public safeInsert(destination: string | null, data: T | T[], callback?: CallbackWithError<T>) {
+  public safeInsert(destination: string | null, data: TreeLike<T>): typeof this;
+  public safeInsert(destination: string | null, data: TreeLike<T>, callback: CallbackWithError<T>): void;
+  public safeInsert(destination: string | null, data: TreeLike<T>, callback?: CallbackWithError<T>) {
     if (callback) return void functions.safeInsert(this.tree, destination, data, this.safeListen(callback));
 
     const update = functions.safeInsert(this.currentTree, destination, data);

@@ -1,27 +1,27 @@
-import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import { TreeNode } from "$core/index";
 import { findNode } from "../../helpers";
 
 describe("findNode", async () => {
-  beforeAll(() => {
-    vi.fn().mockImplementation(findNode);
-  });
-
-  afterAll(() => {
+  afterEach(() => {
     vi.resetAllMocks();
   });
 
   const { TREE_DATA } = await vi.importActual<{ TREE_DATA: TreeNode[] }>("$core/__mocks__");
 
   it("returns undefined for empty tree", () => {
+    const fn = vi.fn(findNode);
+
     const emptyTree: TreeNode[] = [];
 
     const nodeId = "1";
 
-    expect(findNode(emptyTree, nodeId)).toBeUndefined();
+    expect(fn(emptyTree, nodeId)).toBeUndefined();
   });
 
   it("returns correct node for existing node in the tree", async () => {
+    const fn = vi.fn(findNode);
+
     const nodeId = "4";
 
     const expectedNode = {
@@ -30,7 +30,7 @@ describe("findNode", async () => {
       children: [],
     };
 
-    expect(findNode(TREE_DATA, nodeId)).toStrictEqual(expectedNode);
-    expect(findNode(TREE_DATA, nodeId)).toMatchSnapshot();
+    expect(fn(TREE_DATA, nodeId)).toStrictEqual(expectedNode);
+    expect(fn(TREE_DATA, nodeId)).toMatchSnapshot();
   });
 });

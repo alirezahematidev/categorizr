@@ -1,9 +1,9 @@
-import { CallbackWithError, TreeNode } from "$core/index";
+import { CallbackWithError, TreeLike, TreeNode } from "$core/index";
 import { clone, exception, findNode, error, nonUniqueTreeWarning } from "../helpers";
 
-function safeInsert<T extends TreeNode>(tree: readonly T[], destination: string | null, data: T | T[]): T[];
-function safeInsert<T extends TreeNode>(tree: readonly T[], destination: string | null, data: T | T[], callback: CallbackWithError<T>): void;
-function safeInsert<T extends TreeNode>(tree: readonly T[], destination: string | null, data: T | T[], callback?: CallbackWithError<T>) {
+function safeInsert<T extends TreeNode>(tree: readonly T[], destination: string | null, data: TreeLike<T>): T[];
+function safeInsert<T extends TreeNode>(tree: readonly T[], destination: string | null, data: TreeLike<T>, callback: CallbackWithError<T>): void;
+function safeInsert<T extends TreeNode>(tree: readonly T[], destination: string | null, data: TreeLike<T>, callback?: CallbackWithError<T>) {
   nonUniqueTreeWarning(tree, "safeInsert");
 
   const cloneTree = clone(tree);

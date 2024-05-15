@@ -1,19 +1,17 @@
-import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import { insert } from "../functions";
-import { TreeNode } from "$core/index";
+import { ActualParameters, TreeNode } from "$core/index";
 
 describe("insert", async () => {
-  beforeAll(() => {
-    vi.fn().mockImplementation(insert);
-  });
-
-  afterAll(() => {
+  afterEach(() => {
     vi.resetAllMocks();
   });
 
   const { TREE_DATA } = await vi.importActual<{ TREE_DATA: TreeNode[] }>("$core/__mocks__");
 
   it("throws an error when parent node is not found", () => {
+    const fn = vi.fn<ActualParameters<TreeNode, "insert">>(insert);
+
     const emptyTree: TreeNode[] = [];
 
     const node = {
@@ -22,18 +20,20 @@ describe("insert", async () => {
       children: [],
     };
 
-    expect(() => insert(emptyTree, "3", node)).toThrow(new Error("[Treekit:insert] Cannot find the destination node with the given id."));
-    expect(() => insert(emptyTree, "3", [node])).toThrow(new Error("[Treekit:insert] Cannot find the destination node with the given id."));
+    expect(() => fn(emptyTree, "3", node)).toThrow(new Error("[Treekit:insert] Cannot find the destination node with the given id."));
+    expect(() => fn(emptyTree, "3", [node])).toThrow(new Error("[Treekit:insert] Cannot find the destination node with the given id."));
   });
 
   it("returns updated tree including the inserted node at first level of tree within null destId", () => {
+    const fn = vi.fn<ActualParameters<TreeNode, "insert">>(insert);
+
     const node = {
       id: "6",
       name: "sub-category-root",
       children: [],
     };
 
-    expect(insert(TREE_DATA, null, node)).toStrictEqual([
+    expect(fn(TREE_DATA, null, node)).toStrictEqual([
       {
         id: "1",
         name: "category-1",
@@ -69,7 +69,7 @@ describe("insert", async () => {
       },
     ]);
 
-    expect(insert(TREE_DATA, null, node)).toMatchSnapshot();
+    expect(fn(TREE_DATA, null, node)).toMatchSnapshot();
   });
 
   it("returns updated tree including the inserted array of nodes", () => {
@@ -131,6 +131,8 @@ describe("insert", async () => {
   });
 
   it("returns updated tree including the inserted node", () => {
+    const fn = vi.fn<ActualParameters<TreeNode, "insert">>(insert);
+
     const node1 = {
       id: "10",
       name: "sub-category-3",
@@ -143,11 +145,11 @@ describe("insert", async () => {
       children: [],
     };
 
-    expect(insert(TREE_DATA, "3", node1)).toMatchSnapshot();
+    expect(fn(TREE_DATA, "3", node1)).toMatchSnapshot();
 
-    expect(() => insert(TREE_DATA, "10", node2)).toThrow(new Error("[Treekit:insert] Cannot find the destination node with the given id."));
+    expect(() => fn(TREE_DATA, "10", node2)).toThrow(new Error("[Treekit:insert] Cannot find the destination node with the given id."));
 
-    insert(TREE_DATA, "3", node2, (newTree) => {
+    fn(TREE_DATA, "3", node2, (newTree) => {
       expect(newTree).toMatchSnapshot();
     });
   });
