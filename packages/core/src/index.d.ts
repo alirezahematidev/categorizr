@@ -10,6 +10,8 @@ export type FlatNode = {
   [property: string]: any;
 };
 
+export type TreeLike<T extends TreeNode> = T | T[];
+
 export type MaybeNode<T extends TreeNode> = T | undefined;
 
 export type Callback<T extends TreeNode> = (tree: readonly T[]) => void;
@@ -24,45 +26,45 @@ export type ActualParameters<T extends TreeNode, K extends keyof TreeImpl<T>> = 
 
 export interface TreeImpl<T extends TreeNode> {
   remove: {
-    (id: string): T[];
+    (id: string): typeof this;
     (id: string, callback: Callback<T>): void;
   };
 
   safeRemove: {
-    (id: string): T[];
+    (id: string): typeof this;
     (id: string, callback: CallbackWithError<T>): void;
   };
 
   insert: {
-    (destination: string | null, node: T): T[];
-    (destination: string | null, node: T, callback: Callback<T>): void;
+    (destination: string | null, data: TreeLike<T>): typeof this;
+    (destination: string | null, data: TreeLike<T>, callback: Callback<T>): void;
   };
   safeInsert: {
-    (destination: string | null, node: T): T[];
-    (destination: string | null, node: T, callback: CallbackWithError<T>): void;
+    (destination: string | null, data: TreeLike<T>): typeof this;
+    (destination: string | null, data: TreeLike<T>, callback: CallbackWithError<T>): void;
   };
   move: {
-    (from: string, to: string | null): T[];
+    (from: string, to: string | null): typeof this;
     (from: string, to: string | null, callback: Callback<T>): void;
   };
   safeMove: {
-    (from: string, to: string | null): T[];
+    (from: string, to: string | null): typeof this;
     (from: string, to: string | null, callback: CallbackWithError<T>): void;
   };
   replace: {
-    (target: string, replacer: Replacer<T>): T[];
+    (target: string, replacer: Replacer<T>): typeof this;
     (target: string, replacer: Replacer<T>, callback: Callback<T>): void;
   };
   safeReplace: {
-    (target: string, replacer: Replacer<T>): T[];
+    (target: string, replacer: Replacer<T>): typeof this;
     (target: string, replacer: Replacer<T>, callback: CallbackWithError<T>): void;
   };
   swap: {
-    (from: string, to: string): T[];
+    (from: string, to: string): typeof this;
     (from: string, to: string, callback: Callback<T>): void;
   };
   safeSwap: {
-    (from: string, to: string): T[];
+    (from: string, to: string): typeof this;
     (from: string, to: string, callback: CallbackWithError<T>): void;
   };
 }
