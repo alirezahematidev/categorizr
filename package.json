@@ -11,9 +11,6 @@
     "test": "vitest --config ./vitest.config.ts",
     "build:core": "pnpm -r --filter='./packages/core' run build",
     "build:react": "pnpm -r --if-present --filter='./packages/react' run build",
-    "before-deploy": "rimraf packages/react/build",
-    "after-deploy": "wait-on packages/react/build/dist/main.d.ts && tsx scripts/prerelease-react.ts",
-    "deploy:react": "pnpm before-deploy && pnpm --filter='./packages/react' --prod deploy packages/react/build && pnpm after-deploy",
     "build": "pnpm build:core && pnpm build:react",
     "dev": "pnpm -r --filter='./packages/react' run dev",
     "release": "pnpm build:core && tsx scripts/release.ts"
@@ -24,7 +21,6 @@
     "conventional-changelog-cli": "4.1.0",
     "execa": "9.1.0",
     "fast-glob": "3.3.2",
-    "lerna": "^8.1.3",
     "rimraf": "5.0.7",
     "tsx": "4.10.2",
     "typescript": "^5.2.2",
