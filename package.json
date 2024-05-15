@@ -16,7 +16,7 @@
     "deploy:react": "pnpm before-deploy && pnpm --filter='./packages/react' --prod deploy packages/react/build && pnpm after-deploy",
     "build": "pnpm build:core && pnpm build:react",
     "dev": "pnpm -r --filter='./packages/react' run dev",
-    "release": "pnpm build && tsx scripts/release.ts"
+    "release": "pnpm build:core && tsx scripts/release.ts"
   },
   "devDependencies": {
     "@pnpm/exportable-manifest": "^6.0.1",

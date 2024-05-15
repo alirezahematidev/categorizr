@@ -29,7 +29,7 @@ jobs:
           run_install: false
 
       - name: Install dependencies
-        run: pnpm install -r --force --prod
+        run: pnpm install -r --no-frozen-lockfile --force --prod
 
       - name: Tests
         run: pnpm test
