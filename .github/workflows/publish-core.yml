@@ -6,18 +6,6 @@ on:
       - "core@*"
 
 jobs:
-  cleanup:
-    runs-on: ubuntu-latest
-    permissions: write-all
-
-    steps:
-      - name: 🗑 Delete deployments
-        uses: strumwolf/delete-deployment-environment@v2
-        with:
-          token: ${{ secrets.NPM_TOKEN_CORE }}
-          environment: production-core
-          onlyRemoveDeployments: true
-
   publish:
     runs-on: ubuntu-latest
     permissions:
