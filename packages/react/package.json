@@ -1,6 +1,6 @@
 {
   "name": "@categorizr/react",
-  "version": "0.0.27",
+  "version": "0.0.28",
   "type": "module",
   "author": "Alireza Hemati",
   "description": "A superpower tool to manage and handle nested tree data in react",
@@ -39,10 +39,10 @@
   },
   "dependencies": {
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "@categorizr/core": "workspace:*"
   },
   "devDependencies": {
-    "@categorizr/core": "workspace:*",
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",
     "@typescript-eslint/eslint-plugin": "^7.2.0",
