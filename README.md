@@ -23,3 +23,26 @@ To run tests, run the following command
 ```bash
   npm run test
 ```
+
+## Usage
+
+```js
+import Tree from "@treekit/core";
+
+const data = [
+  // your tree data
+];
+
+const {insert, move, ...} = new Tree(data);
+```
+
+Also you can directly import the methods to use
+
+```js
+import {insert, move, ...} "@treekit/core/functions";
+
+const data = [
+  // your tree data
+];
+
+```
