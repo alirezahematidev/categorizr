@@ -1,50 +1,139 @@
 {
-  "name": "@categorizr/core",
-  "version": "0.0.1",
-  "type": "module",
-  "license": "MIT",
-  "author": "Alireza Hemati",
-  "description": "A superpower tool to manage and handle nested tree data in javascript",
-  "keywords": [
-    "tree",
-    "category",
-    "hierarchy"
-  ],
-  "files": [
-    "dist"
-  ],
-  "main": "./dist/categorizr-core.js",
-  "types": "./dist/main.d.ts",
-  "exports": {
-    ".": {
-      "import": {
+  "updatedProjects": [
+    {
+      "manifest": {
+        "name": "@categorizr/core",
+        "version": "0.0.1",
+        "type": "module",
+        "license": "MIT",
+        "author": "Alireza Hemati",
+        "description": "A superpower tool to manage and handle nested tree data in javascript",
+        "keywords": [
+          "tree",
+          "category",
+          "hierarchy"
+        ],
+        "files": [
+          "dist"
+        ],
+        "main": "./dist/categorizr-core.js",
         "types": "./dist/main.d.ts",
-        "default": "./dist/categorizr-core.js"
+        "exports": {
+          ".": {
+            "import": {
+              "types": "./dist/main.d.ts",
+              "default": "./dist/categorizr-core.js"
+            },
+            "require": {
+              "types": "./dist/main.d.cts",
+              "default": "./dist/categorizr-core.cjs"
+            }
+          }
+        },
+        "repository": {
+          "type": "git",
+          "url": "git+https://github.com/alirezahematidev/categorizr.git"
+        },
+        "bugs": {
+          "url": "https://github.com/alirezahematidev/categorizr/issues"
+        },
+        "publishConfig": {
+          "access": "public"
+        },
+        "homepage": "https://github.com/alirezahematidev/categorizr#readme",
+        "scripts": {
+          "build": "tsc && vite build"
+        },
+        "devDependencies": {
+          "vite-plugin-dts": "3.9.1",
+          "rollup-plugin-esbuild": "6.1.1",
+          "rollup": "4.17.2",
+          "esbuild": "0.21.2"
+        }
       },
-      "require": {
-        "types": "./dist/main.d.cts",
-        "default": "./dist/categorizr-core.cjs"
-      }
+      "peerDependencyIssues": {
+        "bad": {},
+        "missing": {
+          "@types/node": [
+            {
+              "parents": [
+                {
+                  "name": "vite-plugin-dts",
+                  "version": "3.9.1"
+                },
+                {
+                  "name": "@microsoft/api-extractor",
+                  "version": "7.43.0"
+                },
+                {
+                  "name": "@microsoft/api-extractor-model",
+                  "version": "7.28.13"
+                },
+                {
+                  "name": "@rushstack/node-core-library",
+                  "version": "4.0.2"
+                }
+              ],
+              "optional": true,
+              "wantedRange": "*"
+            },
+            {
+              "parents": [
+                {
+                  "name": "vite-plugin-dts",
+                  "version": "3.9.1"
+                },
+                {
+                  "name": "@microsoft/api-extractor",
+                  "version": "7.43.0"
+                },
+                {
+                  "name": "@rushstack/terminal",
+                  "version": "0.10.0"
+                }
+              ],
+              "optional": true,
+              "wantedRange": "*"
+            }
+          ],
+          "supports-color": [
+            {
+              "parents": [
+                {
+                  "name": "vite-plugin-dts",
+                  "version": "3.9.1"
+                },
+                {
+                  "name": "debug",
+                  "version": "4.3.4"
+                }
+              ],
+              "optional": true,
+              "wantedRange": "*"
+            }
+          ],
+          "vite": [
+            {
+              "parents": [
+                {
+                  "name": "vite-plugin-dts",
+                  "version": "3.9.1"
+                }
+              ],
+              "optional": true,
+              "wantedRange": "*"
+            }
+          ]
+        },
+        "conflicts": [],
+        "intersections": {}
+      },
+      "rootDir": "C:\\Users\\P.S\\Desktop\\category\\packages\\core"
     }
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/alirezahematidev/categorizr.git"
-  },
-  "bugs": {
-    "url": "https://github.com/alirezahematidev/categorizr/issues"
-  },
-  "publishConfig": {
-    "access": "public"
-  },
-  "homepage": "https://github.com/alirezahematidev/categorizr#readme",
-  "scripts": {
-    "build": "tsc && vite build"
-  },
-  "devDependencies": {
-    "vite-plugin-dts": "3.9.1",
-    "rollup-plugin-esbuild": "6.1.1",
-    "rollup": "4.17.2",
-    "esbuild": "0.21.2"
+  ],
+  "stats": {
+    "added": 6,
+    "removed": 6,
+    "linkedToRoot": 4
   }
 }
