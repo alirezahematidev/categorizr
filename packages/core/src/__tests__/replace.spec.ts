@@ -16,8 +16,8 @@ describe("replace", async () => {
   it("throws an error when node is not found", () => {
     const emptyTree: TreeNode[] = [];
 
-    expect(() => replace(emptyTree, "1", {})).toThrow(new Error("[Categorizr:replace] Cannot found the target node with the given id"));
-    expect(() => replace(TREE_DATA, "10", {})).toThrow(new Error("[Categorizr:replace] Cannot found the target node with the given id"));
+    expect(() => replace(emptyTree, "1", {})).toThrow(new Error("[Treekit:replace] Cannot found the target node with the given id"));
+    expect(() => replace(TREE_DATA, "10", {})).toThrow(new Error("[Treekit:replace] Cannot found the target node with the given id"));
   });
 
   it("returns updated tree within replaced node that has id", () => {

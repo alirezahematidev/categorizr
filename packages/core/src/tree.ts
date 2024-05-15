@@ -2,7 +2,7 @@ import { Callback, CallbackWithError, TreeNode, Replacer } from "$core/index";
 import * as functions from "./functions";
 import { nonUniqueTreeWarning, safeError } from "./helpers";
 
-class Categorizr<T extends TreeNode> {
+class Tree<T extends TreeNode> {
   private readonly tree: ReadonlyArray<T> = [];
   private listener: Callback<T> | undefined;
 
@@ -203,4 +203,4 @@ class Categorizr<T extends TreeNode> {
   }
 }
 
-export default Categorizr;
+export default Tree;

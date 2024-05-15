@@ -38,6 +38,6 @@ jobs:
         run: pnpm build:core
 
       - name: Publish Core Package
-        run: pnpm publish --no-git-checks --publish-branch main --ignore-scripts --access public -r --filter "@categorizr/core"
+        run: pnpm publish --no-git-checks --publish-branch main --ignore-scripts --access public -r --filter "@treekit/core"
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN_CORE }}

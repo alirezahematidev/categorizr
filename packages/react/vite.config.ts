@@ -12,7 +12,7 @@ export default defineConfig({
     lib: {
       entry: path.resolve(__dirname, "src/main.ts"),
       formats: ["es"],
-      fileName: "categorizr-react",
+      fileName: "treekit-react",
     },
   },
 

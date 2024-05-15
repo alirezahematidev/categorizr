@@ -21,7 +21,7 @@ describe("safeMove", async () => {
 
     safeMove(TREE_DATA, "10", null, (tree, error) => {
       expect(tree).toStrictEqual(TREE_DATA);
-      expect(error).toStrictEqual(new Error("[Categorizr:safeMove] Cannot found the source node with the given id."));
+      expect(error).toStrictEqual(new Error("[Treekit:safeMove] Cannot found the source node with the given id."));
     });
   });
 
@@ -32,7 +32,7 @@ describe("safeMove", async () => {
 
     safeMove(TREE_DATA, "1", "3", (tree, error) => {
       expect(tree).toStrictEqual(TREE_DATA);
-      expect(error).toStrictEqual(new Error("[Categorizr:safeMove] Cannot move the node into its own descendants."));
+      expect(error).toStrictEqual(new Error("[Treekit:safeMove] Cannot move the node into its own descendants."));
     });
   });
 

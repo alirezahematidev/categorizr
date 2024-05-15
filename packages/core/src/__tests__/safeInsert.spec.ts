@@ -26,7 +26,7 @@ describe("safeInsert", async () => {
 
     safeInsert(emptyTree, "3", node, (tree, error) => {
       expect(tree).toStrictEqual(emptyTree);
-      expect(error).toStrictEqual(new Error("[Categorizr:safeInsert] Cannot found the destination node with the given id."));
+      expect(error).toStrictEqual(new Error("[Treekit:safeInsert] Cannot found the destination node with the given id."));
     });
   });
 
@@ -100,7 +100,7 @@ describe("safeInsert", async () => {
 
     safeInsert(TREE_DATA, "10", node2, (newTree, error) => {
       expect(newTree).toStrictEqual(TREE_DATA);
-      expect(error).toStrictEqual(new Error("[Categorizr:safeInsert] Cannot found the destination node with the given id."));
+      expect(error).toStrictEqual(new Error("[Treekit:safeInsert] Cannot found the destination node with the given id."));
     });
   });
 });

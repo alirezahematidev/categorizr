@@ -1,5 +1,5 @@
-import * as functions from "@categorizr/core/functions";
-import { buildTree, flattenTree, type TreeNode } from "@categorizr/core";
+import * as functions from "@treekit/core/functions";
+import { buildTree, flattenTree, type TreeNode } from "@treekit/core";
 import { useState } from "react";
 import type { Override } from "$react/index";
 

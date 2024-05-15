@@ -22,7 +22,7 @@ describe("insert", async () => {
       children: [],
     };
 
-    expect(() => insert(emptyTree, "3", node)).toThrow(new Error("[Categorizr:insert] Cannot find the destination node with the given id."));
+    expect(() => insert(emptyTree, "3", node)).toThrow(new Error("[Treekit:insert] Cannot find the destination node with the given id."));
   });
 
   it("returns updated tree including the inserted node at first level of tree within null destId", () => {
@@ -86,7 +86,7 @@ describe("insert", async () => {
 
     expect(insert(TREE_DATA, "3", node1)).toMatchSnapshot();
 
-    expect(() => insert(TREE_DATA, "10", node2)).toThrow(new Error("[Categorizr:insert] Cannot find the destination node with the given id."));
+    expect(() => insert(TREE_DATA, "10", node2)).toThrow(new Error("[Treekit:insert] Cannot find the destination node with the given id."));
 
     insert(TREE_DATA, "3", node2, (newTree) => {
       expect(newTree).toMatchSnapshot();

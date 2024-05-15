@@ -20,14 +20,14 @@ describe("safeRemove", async () => {
 
     safeRemove(emptyTree, "1", (tree, error) => {
       expect(tree).toStrictEqual(emptyTree);
-      expect(error).toStrictEqual(new Error("[Categorizr:safeRemove] Cannot found the node with the given id."));
+      expect(error).toStrictEqual(new Error("[Treekit:safeRemove] Cannot found the node with the given id."));
     });
 
     expect(safeRemove(TREE_DATA, "10")).toStrictEqual(TREE_DATA);
 
     safeRemove(TREE_DATA, "10", (tree, error) => {
       expect(tree).toStrictEqual(TREE_DATA);
-      expect(error).toStrictEqual(new Error("[Categorizr:safeRemove] Cannot found the node with the given id."));
+      expect(error).toStrictEqual(new Error("[Treekit:safeRemove] Cannot found the node with the given id."));
     });
   });
 

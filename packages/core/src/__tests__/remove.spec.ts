@@ -16,8 +16,8 @@ describe("remove", async () => {
   it("throws an error when parent node is not found", () => {
     const emptyTree: TreeNode[] = [];
 
-    expect(() => remove(emptyTree, "1")).toThrow(new Error("[Categorizr:remove] Cannot found the node with the given id"));
-    expect(() => remove(TREE_DATA, "10")).toThrow(new Error("[Categorizr:remove] Cannot found the node with the given id"));
+    expect(() => remove(emptyTree, "1")).toThrow(new Error("[Treekit:remove] Cannot found the node with the given id"));
+    expect(() => remove(TREE_DATA, "10")).toThrow(new Error("[Treekit:remove] Cannot found the node with the given id"));
   });
 
   it("removes the node from tree correctly", () => {

@@ -21,7 +21,7 @@ describe("safeSwap", async () => {
 
     safeSwap(TREE_DATA, "1", "10", (tree, error) => {
       expect(tree).toStrictEqual(TREE_DATA);
-      expect(error).toStrictEqual(new Error("[Categorizr:safeSwap] Cannot found the from/to node with the given ids."));
+      expect(error).toStrictEqual(new Error("[Treekit:safeSwap] Cannot found the from/to node with the given ids."));
     });
   });
 
@@ -31,7 +31,7 @@ describe("safeSwap", async () => {
 
     safeSwap(TREE_DATA, "5", "3", (tree, error) => {
       expect(tree).toStrictEqual(TREE_DATA);
-      expect(error).toStrictEqual(new Error("[Categorizr:safeSwap] Nodes cannot be swapped as one is a descendant of the other."));
+      expect(error).toStrictEqual(new Error("[Treekit:safeSwap] Nodes cannot be swapped as one is a descendant of the other."));
     });
   });
 

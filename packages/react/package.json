@@ -1,5 +1,5 @@
 {
-  "name": "@categorizr/react",
+  "name": "@treekit/react",
   "version": "0.0.0",
   "type": "module",
   "author": "Alireza Hemati",
@@ -13,12 +13,12 @@
   "files": [
     "dist"
   ],
-  "main": "./dist/categorizr-react.js",
+  "main": "./dist/treekit-react.js",
   "types": "./dist/main.d.ts",
   "exports": {
     ".": {
       "types": "./dist/main.d.ts",
-      "default": "./dist/categorizr-react.js"
+      "default": "./dist/treekit-react.js"
     }
   },
   "repository": {

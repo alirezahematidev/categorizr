@@ -16,13 +16,13 @@ describe("swap", async () => {
   it("throws an error when the node is not found", () => {
     const emptyTree: TreeNode[] = [];
 
-    expect(() => swap(emptyTree, "1", "2")).toThrow(new Error("[Categorizr:swap] Cannot found the from/to node with the given ids."));
-    expect(() => swap(TREE_DATA, "1", "10")).toThrow(new Error("[Categorizr:swap] Cannot found the from/to node with the given ids."));
+    expect(() => swap(emptyTree, "1", "2")).toThrow(new Error("[Treekit:swap] Cannot found the from/to node with the given ids."));
+    expect(() => swap(TREE_DATA, "1", "10")).toThrow(new Error("[Treekit:swap] Cannot found the from/to node with the given ids."));
   });
 
   it("throws an error when the node is descendant of the other", () => {
-    expect(() => swap(TREE_DATA, "3", "5")).toThrow(new Error("[Categorizr:swap] Nodes cannot be swapped as one is a descendant of the other."));
-    expect(() => swap(TREE_DATA, "5", "3")).toThrow(new Error("[Categorizr:swap] Nodes cannot be swapped as one is a descendant of the other."));
+    expect(() => swap(TREE_DATA, "3", "5")).toThrow(new Error("[Treekit:swap] Nodes cannot be swapped as one is a descendant of the other."));
+    expect(() => swap(TREE_DATA, "5", "3")).toThrow(new Error("[Treekit:swap] Nodes cannot be swapped as one is a descendant of the other."));
   });
 
   it("returns updated tree data within the swapped nodes", () => {

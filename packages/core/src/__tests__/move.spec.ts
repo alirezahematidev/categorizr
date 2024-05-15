@@ -16,14 +16,14 @@ describe("move", async () => {
   it("throws an error when node is not found", () => {
     const emptyTree: TreeNode[] = [];
 
-    expect(() => move(emptyTree, "1", null)).toThrow(new Error("[Categorizr:move] Cannot found the source node with the given id"));
-    expect(() => move(TREE_DATA, "10", null)).toThrow(new Error("[Categorizr:move] Cannot found the source node with the given id"));
+    expect(() => move(emptyTree, "1", null)).toThrow(new Error("[Treekit:move] Cannot found the source node with the given id"));
+    expect(() => move(TREE_DATA, "10", null)).toThrow(new Error("[Treekit:move] Cannot found the source node with the given id"));
   });
 
   it("throws an error when try move node to its own descendants", () => {
-    expect(() => move(TREE_DATA, "1", "3")).toThrow(new Error("[Categorizr:move] Cannot move the node into its own descendants."));
-    expect(() => move(TREE_DATA, "1", "5")).toThrow(new Error("[Categorizr:move] Cannot move the node into its own descendants."));
-    expect(() => move(TREE_DATA, "3", "5")).toThrow(new Error("[Categorizr:move] Cannot move the node into its own descendants."));
+    expect(() => move(TREE_DATA, "1", "3")).toThrow(new Error("[Treekit:move] Cannot move the node into its own descendants."));
+    expect(() => move(TREE_DATA, "1", "5")).toThrow(new Error("[Treekit:move] Cannot move the node into its own descendants."));
+    expect(() => move(TREE_DATA, "3", "5")).toThrow(new Error("[Treekit:move] Cannot move the node into its own descendants."));
   });
 
   it("moved nodeId:4 to nodeId:3 should", () => {
