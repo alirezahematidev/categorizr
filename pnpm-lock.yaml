@@ -62,9 +62,6 @@ importers:
 
   packages/react:
     dependencies:
-      '@categorizr/core':
-        specifier: '>=0.0.1'
-        version: 0.0.5
       react:
         specifier: ^18.2.0
         version: 18.3.1
@@ -146,10 +143,6 @@ packages:
       '@babel/helper-validator-identifier': 7.24.5
       to-fast-properties: 2.0.0
     dev: true
-
-  /@categorizr/core@0.0.5:
-    resolution: {integrity: sha512-7NW5Li565C5uJArRA3d2m+qFGdJhK91yP4fAsegalGABgCNtgCjL1OMiDyedfG1FdvF1ouuhy8a22R2kdmeZWA==}
-    dev: false
 
   /@esbuild/aix-ppc64@0.20.2:
     resolution: {integrity: sha512-D+EBOJHXdNZcLJRBkhENNG8Wji2kgc9AZ9KiPr1JuZjsNtyHzrsfLRrY0tk2H2aoFu6RANO1y1iPPUCDYWkb5g==}
