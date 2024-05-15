@@ -5,6 +5,12 @@ on:
     tags:
       - "core@*"
 
+  pull_request:
+    types:
+      - opened
+    branches:
+      - "main"
+
 jobs:
   publish:
     runs-on: ubuntu-latest
