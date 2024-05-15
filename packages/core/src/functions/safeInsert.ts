@@ -1,15 +1,15 @@
 import { CallbackWithError, TreeNode } from "$core/index";
 import { clone, exception, findNode, error, nonUniqueTreeWarning } from "../helpers";
 
-function safeInsert<T extends TreeNode>(tree: readonly T[], destination: string | null, node: T): T[];
-function safeInsert<T extends TreeNode>(tree: readonly T[], destination: string | null, node: T, callback: CallbackWithError<T>): void;
-function safeInsert<T extends TreeNode>(tree: readonly T[], destination: string | null, node: T, callback?: CallbackWithError<T>) {
+function safeInsert<T extends TreeNode>(tree: readonly T[], destination: string | null, data: T | T[]): T[];
+function safeInsert<T extends TreeNode>(tree: readonly T[], destination: string | null, data: T | T[], callback: CallbackWithError<T>): void;
+function safeInsert<T extends TreeNode>(tree: readonly T[], destination: string | null, data: T | T[], callback?: CallbackWithError<T>) {
   nonUniqueTreeWarning(tree, "safeInsert");
 
   const cloneTree = clone(tree);
 
   if (destination === null) {
-    cloneTree.push(node);
+    cloneTree.push(...(Array.isArray(data) ? data : [data]));
 
     return cloneTree;
   }
@@ -26,7 +26,7 @@ function safeInsert<T extends TreeNode>(tree: readonly T[], destination: string 
 
   if (!destNode.children) destNode.children = [];
 
-  destNode.children.push(node);
+  destNode.children.push(...(Array.isArray(data) ? data : [data]));
 
   if (callback) return void callback(cloneTree, undefined);
 

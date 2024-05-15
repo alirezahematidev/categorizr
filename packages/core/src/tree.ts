@@ -91,12 +91,12 @@ class Tree<T extends TreeNode> {
     return this;
   }
 
-  public insert(destination: string | null, node: T): typeof this;
-  public insert(destination: string | null, node: T, callback: Callback<T>): void;
-  public insert(destination: string | null, node: T, callback?: Callback<T>) {
-    if (callback) return void functions.insert(this.tree, destination, node, this.listen(callback));
+  public insert(destination: string | null, data: T | T[]): typeof this;
+  public insert(destination: string | null, data: T | T[], callback: Callback<T>): void;
+  public insert(destination: string | null, data: T | T[], callback?: Callback<T>) {
+    if (callback) return void functions.insert(this.tree, destination, data, this.listen(callback));
 
-    const update = functions.insert(this.currentTree, destination, node);
+    const update = functions.insert(this.currentTree, destination, data);
 
     try {
       if (this.listener) this.listener(update);
@@ -109,12 +109,12 @@ class Tree<T extends TreeNode> {
     return this;
   }
 
-  public safeInsert(destination: string | null, node: T): typeof this;
-  public safeInsert(destination: string | null, node: T, callback: CallbackWithError<T>): void;
-  public safeInsert(destination: string | null, node: T, callback?: CallbackWithError<T>) {
-    if (callback) return void functions.safeInsert(this.tree, destination, node, this.safeListen(callback));
+  public safeInsert(destination: string | null, data: T | T[]): typeof this;
+  public safeInsert(destination: string | null, data: T | T[], callback: CallbackWithError<T>): void;
+  public safeInsert(destination: string | null, data: T | T[], callback?: CallbackWithError<T>) {
+    if (callback) return void functions.safeInsert(this.tree, destination, data, this.safeListen(callback));
 
-    const update = functions.safeInsert(this.currentTree, destination, node);
+    const update = functions.safeInsert(this.currentTree, destination, data);
 
     try {
       if (this.listener) this.listener(update);

@@ -23,6 +23,7 @@ describe("insert", async () => {
     };
 
     expect(() => insert(emptyTree, "3", node)).toThrow(new Error("[Treekit:insert] Cannot find the destination node with the given id."));
+    expect(() => insert(emptyTree, "3", [node])).toThrow(new Error("[Treekit:insert] Cannot find the destination node with the given id."));
   });
 
   it("returns updated tree including the inserted node at first level of tree within null destId", () => {
@@ -65,6 +66,64 @@ describe("insert", async () => {
         id: "6",
         name: "sub-category-root",
         children: [],
+      },
+    ]);
+
+    expect(insert(TREE_DATA, null, node)).toMatchSnapshot();
+  });
+
+  it("returns updated tree including the inserted array of nodes", () => {
+    const node = [
+      {
+        id: "6",
+        name: "sub-category-3",
+        children: [],
+      },
+      {
+        id: "7",
+        name: "sub-category-3",
+        children: [],
+      },
+    ];
+
+    expect(insert(TREE_DATA, "3", node)).toStrictEqual([
+      {
+        id: "1",
+        name: "category-1",
+        children: [
+          {
+            id: "3",
+            name: "sub-category-1",
+            children: [
+              {
+                id: "5",
+                name: "sub-category-3",
+                children: [],
+              },
+              {
+                id: "6",
+                name: "sub-category-3",
+                children: [],
+              },
+              {
+                id: "7",
+                name: "sub-category-3",
+                children: [],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "2",
+        name: "category-2",
+        children: [
+          {
+            id: "4",
+            name: "sub-category-2",
+            children: [],
+          },
+        ],
       },
     ]);
 
