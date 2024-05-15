@@ -21,15 +21,16 @@ jobs:
         with:
           node-version: "20.x"
           registry-url: "https://registry.npmjs.org"
+          cache: "pnpm"
 
-      - uses: pnpm/action-setup@v3
-        name: Install pnpm
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
         with:
           version: 8
           run_install: false
 
       - name: Install dependencies
-        run: pnpm install --force --prefer-offline
+        run: pnpm install -r --force --prod
 
       - name: Tests
         run: pnpm test
@@ -38,6 +39,6 @@ jobs:
         run: pnpm build:react
 
       - name: Publish React Package
-        run: pnpm publish --no-git-checks --publish-branch main --access public --filter "@categorizr/react"
+        run: pnpm publish --no-git-checks --publish-branch main --ignore-scripts --access public -r --filter "@categorizr/react"
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN_REACT }}

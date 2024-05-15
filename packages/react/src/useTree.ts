@@ -1,4 +1,4 @@
-import * as functions from "@categorizr/core";
+import * as functions from "@categorizr/core/functions";
 import { buildTree, flattenTree, type TreeNode } from "@categorizr/core";
 import { useState } from "react";
 import type { Override } from "$react/index";

@@ -10,9 +10,9 @@ export default defineConfig({
   mode: "production",
   build: {
     lib: {
-      entry: path.resolve(__dirname, "src/main.ts"),
-      formats: ["cjs", "es"],
-      fileName: "categorizr-core",
+      entry: { core: path.resolve(__dirname, "src/main.ts"), functions: path.resolve(__dirname, "src/functions/index.ts") },
+      formats: ["es"],
+      fileName: (format, name) => `${name}.${format}.js`,
     },
     rollupOptions: {
       output: {

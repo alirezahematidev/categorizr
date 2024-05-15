@@ -13,17 +13,19 @@
   "files": [
     "dist"
   ],
-  "main": "./dist/categorizr-core.js",
+  "main": "./dist/core.es.js",
   "types": "./dist/main.d.ts",
   "exports": {
     ".": {
       "import": {
         "types": "./dist/main.d.ts",
-        "default": "./dist/categorizr-core.js"
-      },
-      "require": {
-        "types": "./dist/main.d.cts",
-        "default": "./dist/categorizr-core.cjs"
+        "default": "./dist/core.es.js"
+      }
+    },
+    "./functions": {
+      "import": {
+        "types": "./dist/functions/index.d.ts",
+        "default": "./dist/functions.es.js"
       }
     }
   },
