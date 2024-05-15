@@ -31,15 +31,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/alirezahematidev/categorizr.git"
+    "url": "git+https://github.com/alirezahematidev/treekit.git"
   },
   "bugs": {
-    "url": "https://github.com/alirezahematidev/categorizr/issues"
+    "url": "https://github.com/alirezahematidev/treekit/issues"
   },
   "publishConfig": {
     "access": "public"
   },
-  "homepage": "https://github.com/alirezahematidev/categorizr#readme",
+  "homepage": "https://github.com/alirezahematidev/treekit#readme",
   "scripts": {
     "build": "tsc && vite build"
   },
