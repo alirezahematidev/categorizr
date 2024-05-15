@@ -10,7 +10,7 @@
     "preinstall": "npx only-allow pnpm",
     "test": "vitest --config ./vitest.config.ts",
     "build:core": "pnpm -r --filter='./packages/core' run build",
-    "build:react": "pnpm -r --filter='./packages/react' run build && tsx scripts/exportable.ts",
+    "build:react": "pnpm -r --filter='./packages/react' run build",
     "before-deploy": "rimraf packages/react/build",
     "after-deploy": "wait-on packages/react/build/dist/main.d.ts && tsx scripts/prerelease-react.ts",
     "deploy:react": "pnpm before-deploy && pnpm --filter='./packages/react' --prod deploy packages/react/build && pnpm after-deploy",
