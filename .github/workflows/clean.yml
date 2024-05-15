@@ -16,4 +16,5 @@ jobs:
         with:
           token: ${{ secrets.NPM_TOKEN_CORE }}
           environment: production-core
+          ref: ${{ github.ref_name }}
           onlyRemoveDeployments: true
