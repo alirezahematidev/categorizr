@@ -1,18 +1,16 @@
-import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import { isUniqueTree } from "../../helpers";
 
 describe("isUniqueTree", async () => {
-  beforeAll(() => {
-    vi.fn().mockImplementation(isUniqueTree);
-  });
-
-  afterAll(() => {
+  afterEach(() => {
     vi.resetAllMocks();
   });
 
   it("returns false if tree has duplicated node id", () => {
+    const fn = vi.fn(isUniqueTree);
+
     expect(
-      isUniqueTree([
+      fn([
         {
           id: "1",
           name: "category-1",
@@ -46,8 +44,10 @@ describe("isUniqueTree", async () => {
   });
 
   it("returns true if tree nodes has unique id", () => {
+    const fn = vi.fn(isUniqueTree);
+
     expect(
-      isUniqueTree([
+      fn([
         {
           id: "1",
           name: "category-1",

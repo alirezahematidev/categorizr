@@ -1,29 +1,29 @@
-import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import { remove } from "../functions";
-import { TreeNode } from "$core/index";
+import { ActualParameters, TreeNode } from "$core/index";
 
 describe("remove", async () => {
-  beforeAll(() => {
-    vi.fn().mockImplementation(remove);
-  });
-
-  afterAll(() => {
+  afterEach(() => {
     vi.resetAllMocks();
   });
 
   const { TREE_DATA } = await vi.importActual<{ TREE_DATA: TreeNode[] }>("$core/__mocks__");
 
   it("throws an error when parent node is not found", () => {
+    const fn = vi.fn<ActualParameters<TreeNode, "remove">>(remove);
+
     const emptyTree: TreeNode[] = [];
 
-    expect(() => remove(emptyTree, "1")).toThrow(new Error("[Treekit:remove] Cannot found the node with the given id"));
-    expect(() => remove(TREE_DATA, "10")).toThrow(new Error("[Treekit:remove] Cannot found the node with the given id"));
+    expect(() => fn(emptyTree, "1")).toThrow(new Error("[Treekit:remove] Cannot found the node with the given id"));
+    expect(() => fn(TREE_DATA, "10")).toThrow(new Error("[Treekit:remove] Cannot found the node with the given id"));
   });
 
   it("removes the node from tree correctly", () => {
+    const fn = vi.fn<ActualParameters<TreeNode, "remove">>(remove);
+
     const copy = [...TREE_DATA];
 
-    expect(remove(TREE_DATA, "1")).toStrictEqual([
+    expect(fn(TREE_DATA, "1")).toStrictEqual([
       {
         id: "2",
         name: "category-2",
@@ -37,7 +37,7 @@ describe("remove", async () => {
       },
     ]);
 
-    remove(TREE_DATA, "1", (newTree) => {
+    fn(TREE_DATA, "1", (newTree) => {
       expect(newTree).toStrictEqual([
         {
           id: "2",
@@ -69,7 +69,7 @@ describe("remove", async () => {
       },
     ]);
 
-    expect(remove(TREE_DATA, "4")).toStrictEqual([
+    expect(fn(TREE_DATA, "4")).toStrictEqual([
       {
         id: "1",
         name: "category-1",
@@ -121,9 +121,9 @@ describe("remove", async () => {
       },
     ]);
 
-    expect(remove(TREE_DATA, "1")).toMatchSnapshot();
+    expect(fn(TREE_DATA, "1")).toMatchSnapshot();
 
-    remove(TREE_DATA, "1", (newTree) => {
+    fn(TREE_DATA, "1", (newTree) => {
       expect(newTree).toMatchSnapshot();
     });
   });

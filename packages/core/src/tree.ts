@@ -1,8 +1,8 @@
-import { Callback, CallbackWithError, TreeNode, Replacer } from "$core/index";
+import { Callback, CallbackWithError, TreeNode, Replacer, TreeImpl } from "$core/index";
 import * as functions from "./functions";
 import { nonUniqueTreeWarning, safeError } from "./helpers";
 
-class Tree<T extends TreeNode> {
+class Tree<T extends TreeNode> implements TreeImpl<T> {
   private readonly tree: ReadonlyArray<T> = [];
   private listener: Callback<T> | undefined;
 
