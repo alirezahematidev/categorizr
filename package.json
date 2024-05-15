@@ -12,7 +12,6 @@
     "build:core": "pnpm -r --filter='./packages/core' run build",
     "build:react": "pnpm -r --if-present --filter='./packages/react' run build",
     "build": "pnpm build:core && pnpm build:react",
-    "dev": "pnpm -r --filter='./packages/react' run dev",
     "release": "pnpm build:core && tsx scripts/release.ts"
   },
   "devDependencies": {
