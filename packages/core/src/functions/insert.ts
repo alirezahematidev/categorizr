@@ -11,6 +11,8 @@ function insert<T extends TreeNode>(tree: readonly T[], destination: string | nu
   if (destination === null) {
     cloneTree.push(node);
 
+    if (callback) return void callback(cloneTree);
+
     return cloneTree;
   }
 
