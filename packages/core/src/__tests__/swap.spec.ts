@@ -1,34 +1,41 @@
-import { afterEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { swap } from "../functions";
 import { ActualParameters, TreeNode } from "$core/index";
 
 describe("swap", async () => {
-  afterEach(() => {
-    vi.resetAllMocks();
+  let data: TreeNode[];
+  const fn = vi.fn<ActualParameters<TreeNode, "swap">>();
+
+  beforeAll(async () => {
+    const { TREE_DATA } = await vi.importActual<{ TREE_DATA: TreeNode[] }>("$core/__mocks__");
+
+    data = TREE_DATA;
   });
 
-  const { TREE_DATA } = await vi.importActual<{ TREE_DATA: TreeNode[] }>("$core/__mocks__");
+  beforeEach(() => {
+    fn.mockImplementation(swap);
+  });
+
+  afterEach(() => {
+    fn.mockReset();
+  });
 
   it("throws an error when the node is not found", () => {
-    const fn = vi.fn<ActualParameters<TreeNode, "swap">>(swap);
-
     const emptyTree: TreeNode[] = [];
 
     expect(() => fn(emptyTree, "1", "2")).toThrow(new Error("[Treekit:swap] Cannot found the from/to node with the given ids."));
-    expect(() => fn(TREE_DATA, "1", "10")).toThrow(new Error("[Treekit:swap] Cannot found the from/to node with the given ids."));
+    expect(() => fn(data, "1", "10")).toThrow(new Error("[Treekit:swap] Cannot found the from/to node with the given ids."));
   });
 
   it("throws an error when the node is descendant of the other", () => {
     const fn = vi.fn<ActualParameters<TreeNode, "swap">>(swap);
 
-    expect(() => fn(TREE_DATA, "3", "5")).toThrow(new Error("[Treekit:swap] Nodes cannot be swapped as one is a descendant of the other."));
-    expect(() => fn(TREE_DATA, "5", "3")).toThrow(new Error("[Treekit:swap] Nodes cannot be swapped as one is a descendant of the other."));
+    expect(() => fn(data, "3", "5")).toThrow(new Error("[Treekit:swap] Nodes cannot be swapped as one is a descendant of the other."));
+    expect(() => fn(data, "5", "3")).toThrow(new Error("[Treekit:swap] Nodes cannot be swapped as one is a descendant of the other."));
   });
 
   it("returns updated tree data within the swapped nodes", () => {
-    const fn = vi.fn<ActualParameters<TreeNode, "swap">>(swap);
-
-    expect(fn(TREE_DATA, "3", "4")).toStrictEqual([
+    expect(fn(data, "3", "4")).toStrictEqual([
       {
         id: "1",
         name: "category-1",
@@ -59,23 +66,19 @@ describe("swap", async () => {
       },
     ]);
 
-    expect(fn(TREE_DATA, "3", "4")).toMatchSnapshot();
+    expect(fn(data, "3", "4")).toMatchSnapshot();
 
-    fn(TREE_DATA, "3", "4", (newTree) => {
+    fn(data, "3", "4", (newTree) => {
       expect(newTree).toMatchSnapshot();
     });
   });
 
   it("returns original tree data when swapped node with itself", () => {
-    const fn = vi.fn<ActualParameters<TreeNode, "swap">>(swap);
-
-    expect(fn(TREE_DATA, "3", "3")).toStrictEqual(TREE_DATA);
+    expect(fn(data, "3", "3")).toStrictEqual(data);
   });
 
   it("returns original tree data when swapped nodes in same depth", () => {
-    const fn = vi.fn<ActualParameters<TreeNode, "swap">>(swap);
-
-    expect(fn(TREE_DATA, "1", "2")).toStrictEqual([
+    expect(fn(data, "1", "2")).toStrictEqual([
       {
         id: "2",
         name: "category-2",
@@ -106,9 +109,9 @@ describe("swap", async () => {
       },
     ]);
 
-    expect(fn(TREE_DATA, "1", "2")).toMatchSnapshot();
+    expect(fn(data, "1", "2")).toMatchSnapshot();
 
-    fn(TREE_DATA, "1", "2", (newTree) => {
+    fn(data, "1", "2", (newTree) => {
       expect(newTree).toMatchSnapshot();
     });
   });

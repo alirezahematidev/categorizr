@@ -1,11 +1,10 @@
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { TreeNode } from "$core/index";
-import { findNode } from "../../helpers";
+import { find } from "$core/functions";
 
-describe("findNode", async () => {
+describe("find", async () => {
   let data: TreeNode[];
-
-  const fn = vi.fn<Parameters<typeof findNode>>();
+  const fn = vi.fn();
 
   beforeAll(async () => {
     const { TREE_DATA } = await vi.importActual<{ TREE_DATA: TreeNode[] }>("$core/__mocks__");
@@ -14,7 +13,7 @@ describe("findNode", async () => {
   });
 
   beforeEach(() => {
-    fn.mockImplementation(findNode);
+    fn.mockImplementation(find);
   });
 
   afterEach(() => {
@@ -30,11 +29,26 @@ describe("findNode", async () => {
   });
 
   it("returns correct node for existing node in the tree", async () => {
+    const fn = vi.fn(find);
+
     const nodeId = "4";
 
     const expectedNode = {
       id: "4",
       name: "sub-category-2",
+      children: [],
+    };
+
+    expect(fn(data, nodeId)).toStrictEqual(expectedNode);
+    expect(fn(data, nodeId)).toMatchSnapshot();
+  });
+
+  it("returns correct node for existing node in the tree deeper", async () => {
+    const nodeId = "5";
+
+    const expectedNode = {
+      id: "5",
+      name: "sub-category-3",
       children: [],
     };
 

@@ -12,3 +12,5 @@ export * from "./safeReplace";
 
 export * from "./swap";
 export * from "./safeSwap";
+
+export * from "./find";

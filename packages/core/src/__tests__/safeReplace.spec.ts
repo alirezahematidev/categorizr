@@ -1,33 +1,40 @@
-import { afterEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { safeReplace } from "../functions";
 import { ActualParameters, TreeNode } from "$core/index";
 
 describe("safeReplace", async () => {
-  afterEach(() => {
-    vi.resetAllMocks();
+  let data: TreeNode[];
+  const fn = vi.fn<ActualParameters<TreeNode, "safeReplace">>();
+
+  beforeAll(async () => {
+    const { TREE_DATA } = await vi.importActual<{ TREE_DATA: TreeNode[] }>("$core/__mocks__");
+
+    data = TREE_DATA;
   });
 
-  const { TREE_DATA } = await vi.importActual<{ TREE_DATA: TreeNode[] }>("$core/__mocks__");
+  beforeEach(() => {
+    fn.mockImplementation(safeReplace);
+  });
+
+  afterEach(() => {
+    fn.mockReset();
+  });
 
   it("throws an error when node is not found", () => {
-    const fn = vi.fn<ActualParameters<TreeNode, "safeReplace">>(safeReplace);
-
     const emptyTree: TreeNode[] = [];
 
     expect(fn(emptyTree, "1", {})).toStrictEqual(emptyTree);
-    expect(fn(TREE_DATA, "10", {})).toStrictEqual(TREE_DATA);
+    expect(fn(data, "10", {})).toStrictEqual(data);
 
-    fn(TREE_DATA, "10", {}, (tree, error) => {
-      expect(tree).toStrictEqual(TREE_DATA);
+    fn(data, "10", {}, (tree, error) => {
+      expect(tree).toStrictEqual(data);
       expect(error).toStrictEqual(new Error("[Treekit:safeReplace] Cannot found the target node with the given id."));
     });
   });
 
   it("returns updated tree within replaced node that has id", () => {
-    const fn = vi.fn<ActualParameters<TreeNode, "safeReplace">>(safeReplace);
-
     expect(
-      fn(TREE_DATA, "5", {
+      fn(data, "5", {
         id: "10",
         name: "new node",
         children: [],
@@ -64,7 +71,7 @@ describe("safeReplace", async () => {
     ]);
 
     expect(
-      fn(TREE_DATA, "5", {
+      fn(data, "5", {
         id: "10",
         name: "new node",
         children: [],
@@ -72,7 +79,7 @@ describe("safeReplace", async () => {
     ).toMatchSnapshot();
 
     fn(
-      TREE_DATA,
+      data,
       "5",
       {
         id: "10",
@@ -87,10 +94,8 @@ describe("safeReplace", async () => {
   });
 
   it("returns updated tree within replaced node that has not id", () => {
-    const fn = vi.fn<ActualParameters<TreeNode, "safeReplace">>(safeReplace);
-
     expect(
-      fn(TREE_DATA, "5", {
+      fn(data, "5", {
         name: "new node",
         children: [],
       })
@@ -126,14 +131,14 @@ describe("safeReplace", async () => {
     ]);
 
     expect(
-      fn(TREE_DATA, "5", {
+      fn(data, "5", {
         name: "new node",
         children: [],
       })
     ).toMatchSnapshot();
 
     fn(
-      TREE_DATA,
+      data,
       "5",
       {
         name: "new node",
@@ -147,10 +152,8 @@ describe("safeReplace", async () => {
   });
 
   it("returns updated tree within replaced node that placed in first depth", () => {
-    const fn = vi.fn<ActualParameters<TreeNode, "safeReplace">>(safeReplace);
-
     expect(
-      fn(TREE_DATA, "1", {
+      fn(data, "1", {
         id: "10",
         name: "new node",
         children: [],
@@ -175,7 +178,7 @@ describe("safeReplace", async () => {
     ]);
 
     expect(
-      fn(TREE_DATA, "1", {
+      fn(data, "1", {
         id: "10",
         name: "new node",
         children: [],
@@ -183,7 +186,7 @@ describe("safeReplace", async () => {
     ).toMatchSnapshot();
 
     fn(
-      TREE_DATA,
+      data,
       "1",
       {
         id: "10",

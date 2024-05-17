@@ -1,11 +1,13 @@
 import { safeInsert } from "./safeInsert";
 import { safeRemove } from "./safeRemove";
 import { CallbackWithError, TreeNode } from "$core/index";
-import { containsNode, exception, findNode, findParent, error, nonUniqueTreeWarning } from "../helpers";
+import { containsNode, exception, findNode, findParent, error, nonUniqueTreeWarning, assertion } from "../helpers";
 
 function safeMove<T extends TreeNode>(tree: readonly T[], from: string, to: string | null): T[];
 function safeMove<T extends TreeNode>(tree: readonly T[], from: string, to: string | null, callback: CallbackWithError<T>): void;
 function safeMove<T extends TreeNode>(tree: readonly T[], from: string, to: string | null, callback?: CallbackWithError<T>) {
+  assertion(tree);
+
   nonUniqueTreeWarning(tree, "safeMove");
 
   const fromNode = findNode(tree, from);

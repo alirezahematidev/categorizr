@@ -1,11 +1,13 @@
 import { insert } from "./insert";
 import { remove } from "./remove";
 import { Callback, TreeNode } from "$core/index";
-import { containsNode, exception, findNode, findParent, nonUniqueTreeWarning } from "../helpers";
+import { assertion, containsNode, exception, findNode, findParent, nonUniqueTreeWarning } from "../helpers";
 
 function move<T extends TreeNode>(tree: readonly T[], from: string, to: string | null): T[];
 function move<T extends TreeNode>(tree: readonly T[], from: string, to: string | null, callback: Callback<T>): void;
 function move<T extends TreeNode>(tree: readonly T[], from: string, to: string | null, callback?: Callback<T>) {
+  assertion(tree);
+
   nonUniqueTreeWarning(tree, "move");
 
   const node = findNode(tree, from);

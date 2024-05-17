@@ -1,9 +1,11 @@
 import { CallbackWithError, Replacer, TreeNode } from "$core/index";
-import { clone, exception, findNode, findParent, modifyWith, error, nonUniqueTreeWarning } from "../helpers";
+import { clone, exception, findNode, findParent, modifyWith, error, nonUniqueTreeWarning, assertion } from "../helpers";
 
 function safeReplace<T extends TreeNode>(tree: readonly T[], target: string, replacer: Replacer<T>): T[];
 function safeReplace<T extends TreeNode>(tree: readonly T[], target: string, replacer: Replacer<T>, callback: CallbackWithError<T>): void;
 function safeReplace<T extends TreeNode>(tree: readonly T[], target: string, replacer: Replacer<T>, callback?: CallbackWithError<T>) {
+  assertion(tree);
+
   nonUniqueTreeWarning(tree, "safeReplace");
 
   const cloneTree = clone(tree);

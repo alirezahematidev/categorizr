@@ -1,9 +1,19 @@
 import { TreeNode } from "$core/index";
 import Tree from "$core/tree";
-import { describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 describe("tree", async () => {
   const { TREE_DATA } = await vi.importActual<{ TREE_DATA: TreeNode[] }>("$core/__mocks__");
+
+  let tree: Tree<TreeNode>;
+
+  beforeEach(() => {
+    tree = new Tree(TREE_DATA);
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
 
   it("should returns updated tree after insert", () => {
     const node = {
@@ -11,8 +21,6 @@ describe("tree", async () => {
       name: "sub-category-root",
       children: [],
     };
-
-    const tree = new Tree(TREE_DATA);
 
     expect(tree.insert(null, node).getTree()).toStrictEqual([
       {
@@ -59,8 +67,6 @@ describe("tree", async () => {
       name: "sub-category-root",
       children: [],
     };
-
-    const tree = new Tree(TREE_DATA);
 
     expect(tree.insert(null, node).remove("5").move("4", "6").getTree()).toStrictEqual([
       {
