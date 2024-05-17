@@ -1,9 +1,11 @@
 import { CallbackWithError, TreeNode } from "$core/index";
-import { clone, exception, findNode, findParent, modifyWith, error, nonUniqueTreeWarning } from "../helpers";
+import { clone, exception, findNode, findParent, modifyWith, error, nonUniqueTreeWarning, assertion } from "../helpers";
 
 function safeRemove<T extends TreeNode>(tree: readonly T[], id: string): T[];
 function safeRemove<T extends TreeNode>(tree: readonly T[], id: string, callback: CallbackWithError<T>): void;
 function safeRemove<T extends TreeNode>(tree: readonly T[], id: string, callback?: CallbackWithError<T>) {
+  assertion(tree);
+
   nonUniqueTreeWarning(tree, "safeRemove");
 
   const cloneTree = clone(tree);

@@ -1,17 +1,27 @@
-import { afterEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { TreeNode } from "$core/index";
 import { findParent } from "../../helpers";
 
 describe("findParent", async () => {
-  afterEach(() => {
-    vi.resetAllMocks();
+  let data: TreeNode[];
+
+  const fn = vi.fn();
+
+  beforeAll(async () => {
+    const { TREE_DATA } = await vi.importActual<{ TREE_DATA: TreeNode[] }>("$core/__mocks__");
+
+    data = TREE_DATA;
   });
 
-  const { TREE_DATA } = await vi.importActual<{ TREE_DATA: TreeNode[] }>("$core/__mocks__");
+  beforeEach(() => {
+    fn.mockImplementation(findParent);
+  });
+
+  afterEach(() => {
+    fn.mockReset();
+  });
 
   it("returns undefined for empty tree", () => {
-    const fn = vi.fn(findParent);
-
     const emptyTree: TreeNode[] = [];
 
     const node = {
@@ -24,20 +34,16 @@ describe("findParent", async () => {
   });
 
   it("returns undefined when node is not found", async () => {
-    const fn = vi.fn(findParent);
-
     const node = {
       id: "100",
       name: "non-existent-node",
       children: [],
     };
 
-    expect(fn(TREE_DATA, node)).toBeUndefined();
+    expect(fn(data, node)).toBeUndefined();
   });
 
   it("returns correct parent node for node with children", async () => {
-    const fn = vi.fn(findParent);
-
     const node = {
       id: "3",
       name: "sub-category-1",
@@ -50,18 +56,16 @@ describe("findParent", async () => {
       ],
     };
 
-    expect(fn(TREE_DATA, node)).toMatchSnapshot();
+    expect(fn(data, node)).toMatchSnapshot();
   });
 
   it("returns correct parent node for node with children", async () => {
-    const fn = vi.fn(findParent);
-
     const node = {
       id: "4",
       name: "sub-category-1",
       children: [],
     };
 
-    expect(fn(TREE_DATA, node)).toMatchSnapshot();
+    expect(fn(data, node)).toMatchSnapshot();
   });
 });

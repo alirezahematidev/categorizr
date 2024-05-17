@@ -1,9 +1,11 @@
 import { Callback, TreeNode } from "$core/index";
-import { clone, containsNode, exception, findNode, findParent, nonUniqueTreeWarning } from "../helpers";
+import { assertion, clone, containsNode, exception, findNode, findParent, nonUniqueTreeWarning } from "../helpers";
 
 function swap<T extends TreeNode>(tree: readonly T[], from: string, to: string): T[];
 function swap<T extends TreeNode>(tree: readonly T[], from: string, to: string, callback: Callback<T>): void;
 function swap<T extends TreeNode>(tree: readonly T[], from: string, to: string, callback?: Callback<T>) {
+  assertion(tree);
+
   nonUniqueTreeWarning(tree, "swap");
 
   const cloneTree = clone(tree);

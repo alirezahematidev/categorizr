@@ -1,15 +1,19 @@
 import { TreeNode } from "$core/index";
 import { mergeTrees } from "$core/utils";
-import { afterEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 describe("mergeTrees", async () => {
+  const fn = vi.fn<Parameters<typeof mergeTrees>>();
+
+  beforeEach(() => {
+    fn.mockImplementation(mergeTrees);
+  });
+
   afterEach(() => {
-    vi.resetAllMocks();
+    fn.mockReset();
   });
 
   it("should returns the merged trees", () => {
-    const fn = vi.fn(mergeTrees);
-
     const tree1: TreeNode[] = [
       {
         id: "1",
@@ -45,8 +49,6 @@ describe("mergeTrees", async () => {
   });
 
   it("should returns the merged complex trees", () => {
-    const fn = vi.fn(mergeTrees);
-
     const tree1: TreeNode[] = [
       {
         id: "1",

@@ -1,17 +1,26 @@
-import { afterEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { safeInsert } from "../functions";
 import { ActualParameters, TreeNode } from "$core/index";
 
 describe("safeInsert", async () => {
-  afterEach(() => {
-    vi.resetAllMocks();
+  let data: TreeNode[];
+  const fn = vi.fn<ActualParameters<TreeNode, "safeInsert">>();
+
+  beforeAll(async () => {
+    const { TREE_DATA } = await vi.importActual<{ TREE_DATA: TreeNode[] }>("$core/__mocks__");
+
+    data = TREE_DATA;
   });
 
-  const { TREE_DATA } = await vi.importActual<{ TREE_DATA: TreeNode[] }>("$core/__mocks__");
+  beforeEach(() => {
+    fn.mockImplementation(safeInsert);
+  });
+
+  afterEach(() => {
+    fn.mockReset();
+  });
 
   it("returns original data when parent node is not found", () => {
-    const fn = vi.fn<ActualParameters<TreeNode, "safeInsert">>(safeInsert);
-
     const emptyTree: TreeNode[] = [];
 
     const node = {
@@ -29,15 +38,13 @@ describe("safeInsert", async () => {
   });
 
   it("returns updated tree including the inserted node at first level of tree within null destId", () => {
-    const fn = vi.fn<ActualParameters<TreeNode, "safeInsert">>(safeInsert);
-
     const node = {
       id: "6",
       name: "sub-category-root",
       children: [],
     };
 
-    expect(fn(TREE_DATA, null, node)).toStrictEqual([
+    expect(fn(data, null, node)).toStrictEqual([
       {
         id: "1",
         name: "category-1",
@@ -73,7 +80,7 @@ describe("safeInsert", async () => {
       },
     ]);
 
-    expect(fn(TREE_DATA, null, node)).toMatchSnapshot();
+    expect(fn(data, null, node)).toMatchSnapshot();
   });
 
   it("returns updated tree including the inserted array of nodes", () => {
@@ -90,7 +97,7 @@ describe("safeInsert", async () => {
       },
     ];
 
-    expect(safeInsert(TREE_DATA, "3", node)).toStrictEqual([
+    expect(safeInsert(data, "3", node)).toStrictEqual([
       {
         id: "1",
         name: "category-1",
@@ -131,12 +138,10 @@ describe("safeInsert", async () => {
       },
     ]);
 
-    expect(safeInsert(TREE_DATA, null, node)).toMatchSnapshot();
+    expect(safeInsert(data, null, node)).toMatchSnapshot();
   });
 
   it("returns updated tree including the inserted node", () => {
-    const fn = vi.fn<ActualParameters<TreeNode, "safeInsert">>(safeInsert);
-
     const node1 = {
       id: "10",
       name: "sub-category-3",
@@ -149,17 +154,17 @@ describe("safeInsert", async () => {
       children: [],
     };
 
-    expect(fn(TREE_DATA, "3", node1)).toMatchSnapshot();
+    expect(fn(data, "3", node1)).toMatchSnapshot();
 
-    expect(fn(TREE_DATA, "10", node2)).toStrictEqual(TREE_DATA);
+    expect(fn(data, "10", node2)).toStrictEqual(data);
 
-    fn(TREE_DATA, "3", node2, (newTree, error) => {
+    fn(data, "3", node2, (newTree, error) => {
       expect(error).toBeUndefined();
       expect(newTree).toMatchSnapshot();
     });
 
-    fn(TREE_DATA, "10", node2, (newTree, error) => {
-      expect(newTree).toStrictEqual(TREE_DATA);
+    fn(data, "10", node2, (newTree, error) => {
+      expect(newTree).toStrictEqual(data);
       expect(error).toStrictEqual(new Error("[Treekit:safeInsert] Cannot found the destination node with the given id."));
     });
   });

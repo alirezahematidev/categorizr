@@ -13,3 +13,7 @@ export function safeError(error: unknown, fallback = "An unknown error occured."
 export function exception(method: string, message: string) {
   return new Error(`[Treekit:${method}] ${message}`);
 }
+
+export function assertion(tree: any) {
+  console.assert(typeof tree !== "undefined" && Array.isArray(tree), "%o", { tree, errorMessage: "Received undefined or invalid tree data" });
+}

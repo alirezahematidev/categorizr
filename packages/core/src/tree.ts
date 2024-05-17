@@ -1,5 +1,6 @@
-import { Callback, CallbackWithError, TreeNode, Replacer, TreeImpl, TreeLike } from "$core/index";
+import { Callback, CallbackWithError, TreeNode, Replacer, TreeImpl, TreeLike, MaybeNode } from "$core/index";
 import * as functions from "./functions";
+import * as utils from "./utils";
 import { nonUniqueTreeWarning, safeError } from "./helpers";
 
 class Tree<T extends TreeNode> implements TreeImpl<T> {
@@ -53,6 +54,18 @@ class Tree<T extends TreeNode> implements TreeImpl<T> {
 
   public getTree() {
     return this.currentTree;
+  }
+
+  public find(id: string): MaybeNode<T> {
+    return functions.find(this.currentTree, id);
+  }
+
+  public getPath(id: string): string[] {
+    return utils.getPath(this.currentTree, id);
+  }
+
+  public get size() {
+    return utils.size(this.currentTree);
   }
 
   public remove(id: string): typeof this;

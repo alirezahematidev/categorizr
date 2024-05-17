@@ -1,19 +1,31 @@
 import { FlatNode, TreeNode } from "$core/index";
 import { buildTree } from "$core/utils";
-import { afterEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 
 describe("buildTree", async () => {
-  afterEach(() => {
-    vi.resetAllMocks();
+  let treeData: TreeNode[];
+  let flatData: FlatNode[];
+
+  const fn = vi.fn();
+
+  beforeAll(async () => {
+    const { TREE_DATA, FLAT_DATA } = await vi.importActual<{ TREE_DATA: TreeNode[]; FLAT_DATA: FlatNode[] }>("$core/__mocks__");
+
+    treeData = TREE_DATA;
+    flatData = FLAT_DATA;
   });
 
-  const { TREE_DATA, FLAT_DATA } = await vi.importActual<{ TREE_DATA: TreeNode[]; FLAT_DATA: FlatNode[] }>("$core/__mocks__");
+  beforeEach(() => {
+    fn.mockImplementation(buildTree);
+  });
+
+  afterEach(() => {
+    fn.mockReset();
+  });
 
   it("should returns tree version of given flat data", () => {
-    const fn = vi.fn(buildTree);
+    expect(fn(flatData)).toStrictEqual(treeData);
 
-    expect(fn(FLAT_DATA)).toStrictEqual(TREE_DATA);
-
-    expect(fn(FLAT_DATA)).toMatchSnapshot();
+    expect(fn(flatData)).toMatchSnapshot();
   });
 });
