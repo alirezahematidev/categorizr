@@ -10,6 +10,10 @@ export type FlatNode = {
   [property: string]: any;
 };
 
+export type TreeOptions<T extends TreeNode> = {
+  listener?: Callback<T>;
+};
+
 export type TreeLike<T extends TreeNode> = T | T[];
 
 export type MaybeNode<T extends TreeNode> = T | undefined;

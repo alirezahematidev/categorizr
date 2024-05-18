@@ -1,4 +1,4 @@
-import { Callback, CallbackWithError, TreeNode, Replacer, TreeImpl, TreeLike, MaybeNode } from "$core/index";
+import { Callback, CallbackWithError, TreeNode, Replacer, TreeImpl, TreeLike, MaybeNode, TreeOptions } from "$core/index";
 import * as functions from "./functions";
 import * as utils from "./utils";
 import { nonUniqueTreeWarning, safeError } from "./helpers";
@@ -8,16 +8,16 @@ class Tree<T extends TreeNode> implements TreeImpl<T> {
 
   private currentTree: T[] = [];
 
-  #listener: Callback<T> | undefined;
+  private listener: Callback<T> | undefined;
 
-  constructor(tree: T[], listener?: Callback<T>) {
+  constructor(tree: T[], options: TreeOptions<T> = {}) {
     nonUniqueTreeWarning(tree, "constructor");
 
     this.tree = tree;
 
     this.currentTree = tree;
 
-    this.#listener = listener;
+    this.listener = options.listener;
   }
 
   private listen(callback: Callback<T>) {
@@ -25,7 +25,7 @@ class Tree<T extends TreeNode> implements TreeImpl<T> {
       try {
         callback(tree);
 
-        if (this.#listener) this.#listener(tree);
+        if (this.listener) this.listener(tree);
       } catch (error) {
         safeError(error, "An error occured while listening to update.");
       }
@@ -37,7 +37,7 @@ class Tree<T extends TreeNode> implements TreeImpl<T> {
       try {
         callback(tree, error);
 
-        if (this.#listener) this.#listener(tree);
+        if (this.listener) this.listener(tree);
       } catch (_error) {
         callback(tree, _error instanceof Error ? _error : error);
 
@@ -76,7 +76,7 @@ class Tree<T extends TreeNode> implements TreeImpl<T> {
     const update = functions.remove(this.currentTree, id);
 
     try {
-      if (this.#listener) this.#listener(update);
+      if (this.listener) this.listener(update);
     } catch (error) {
       safeError(error, "An error occured while removing a node.");
     }
@@ -94,7 +94,7 @@ class Tree<T extends TreeNode> implements TreeImpl<T> {
     const update = functions.safeRemove(this.currentTree, id);
 
     try {
-      if (this.#listener) this.#listener(update);
+      if (this.listener) this.listener(update);
     } catch (error) {
       safeError(error, "An error occured while removing a node.");
     }
@@ -112,7 +112,7 @@ class Tree<T extends TreeNode> implements TreeImpl<T> {
     const update = functions.insert(this.currentTree, destination, data);
 
     try {
-      if (this.#listener) this.#listener(update);
+      if (this.listener) this.listener(update);
     } catch (error) {
       safeError(error, "An error occured while inserting a node.");
     }
@@ -130,7 +130,7 @@ class Tree<T extends TreeNode> implements TreeImpl<T> {
     const update = functions.safeInsert(this.currentTree, destination, data);
 
     try {
-      if (this.#listener) this.#listener(update);
+      if (this.listener) this.listener(update);
     } catch (error) {
       safeError(error, "An error occured while inserting a node.");
     }
@@ -148,7 +148,7 @@ class Tree<T extends TreeNode> implements TreeImpl<T> {
     const update = functions.move(this.currentTree, from, to);
 
     try {
-      if (this.#listener) this.#listener(update);
+      if (this.listener) this.listener(update);
     } catch (error) {
       safeError(error, "An error occured while moving a node.");
     }
@@ -166,7 +166,7 @@ class Tree<T extends TreeNode> implements TreeImpl<T> {
     const update = functions.safeMove(this.currentTree, from, to);
 
     try {
-      if (this.#listener) this.#listener(update);
+      if (this.listener) this.listener(update);
     } catch (error) {
       safeError(error, "An error occured while moving a node.");
     }
@@ -184,7 +184,7 @@ class Tree<T extends TreeNode> implements TreeImpl<T> {
     const update = functions.replace(this.currentTree, target, replacer);
 
     try {
-      if (this.#listener) this.#listener(update);
+      if (this.listener) this.listener(update);
     } catch (error) {
       safeError(error, "An error occured while replacing a node.");
     }
@@ -202,7 +202,7 @@ class Tree<T extends TreeNode> implements TreeImpl<T> {
     const update = functions.safeReplace(this.currentTree, target, replacer);
 
     try {
-      if (this.#listener) this.#listener(update);
+      if (this.listener) this.listener(update);
     } catch (error) {
       safeError(error, "An error occured while replacing a node.");
     }
@@ -220,7 +220,7 @@ class Tree<T extends TreeNode> implements TreeImpl<T> {
     const update = functions.swap(this.currentTree, from, to);
 
     try {
-      if (this.#listener) this.#listener(update);
+      if (this.listener) this.listener(update);
     } catch (error) {
       safeError(error, "An error occured while swaping a node.");
     }
@@ -238,7 +238,7 @@ class Tree<T extends TreeNode> implements TreeImpl<T> {
     const update = functions.safeSwap(this.currentTree, from, to);
 
     try {
-      if (this.#listener) this.#listener(update);
+      if (this.listener) this.listener(update);
     } catch (error) {
       safeError(error, "An error occured while swaping a node.");
     }
