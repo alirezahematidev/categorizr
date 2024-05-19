@@ -3,16 +3,16 @@ import { safeRemove } from "./safeRemove";
 import { CallbackWithError, TreeNode } from "$core/index";
 import { containsNode, exception, findNode, findParent, error, nonUniqueTreeWarning, assertion } from "../helpers";
 
-function safeMove<T extends TreeNode>(tree: readonly T[], from: string, to: string | null): T[];
-function safeMove<T extends TreeNode>(tree: readonly T[], from: string, to: string | null, callback: CallbackWithError<T>): void;
-function safeMove<T extends TreeNode>(tree: readonly T[], from: string, to: string | null, callback?: CallbackWithError<T>) {
+function safeMove<T extends TreeNode>(tree: readonly T[], source: string, to: string | null): T[];
+function safeMove<T extends TreeNode>(tree: readonly T[], source: string, to: string | null, callback: CallbackWithError<T>): void;
+function safeMove<T extends TreeNode>(tree: readonly T[], source: string, to: string | null, callback?: CallbackWithError<T>) {
   assertion(tree);
 
   nonUniqueTreeWarning(tree, "safeMove");
 
-  const fromNode = findNode(tree, from);
+  const sourceNode = findNode(tree, source);
 
-  if (containsNode(tree, from, to)) {
+  if (containsNode(tree, source, to)) {
     error("safeMove", "Cannot move the node into its own descendants.");
 
     if (callback) return void callback(tree, exception("safeMove", "Cannot move the node into its own descendants."));
@@ -20,7 +20,7 @@ function safeMove<T extends TreeNode>(tree: readonly T[], from: string, to: stri
     return [...tree];
   }
 
-  if (!fromNode) {
+  if (!sourceNode) {
     error("safeMove", "Cannot found the source node with the given id.");
 
     if (callback) return void callback(tree, exception("safeMove", "Cannot found the source node with the given id."));
@@ -28,7 +28,7 @@ function safeMove<T extends TreeNode>(tree: readonly T[], from: string, to: stri
     return [...tree];
   }
 
-  const parentNode = findParent(tree, fromNode);
+  const parentNode = findParent(tree, sourceNode);
 
   if (parentNode && parentNode.id === to) {
     if (callback) return void callback(tree as T[], undefined);
@@ -36,7 +36,7 @@ function safeMove<T extends TreeNode>(tree: readonly T[], from: string, to: stri
     return [...tree] as T[];
   }
 
-  const result = safeInsert(safeRemove(tree, from), to, fromNode);
+  const result = safeInsert(safeRemove(tree, source), to, sourceNode);
 
   if (callback) return void callback(result, undefined);
 

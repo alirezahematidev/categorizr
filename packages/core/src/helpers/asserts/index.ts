@@ -4,13 +4,13 @@ export function error(method: string, message: string) {
   }
 }
 
-export function safeError(error: unknown, fallback = "An unknown error occured.") {
+export function safeError(error: unknown, fallback = "An unknown error has been occured.") {
   if (process.env.NODE_ENV !== "test") {
     console.error("Warning: [Treekit] %s\n", error instanceof Error ? error.message : fallback);
   }
 }
 
-export function exception(method: string, message: string) {
+export function exception(method: string, message = "An unknown exception has been occured.") {
   return new Error(`[Treekit:${method}] ${message}`);
 }
 

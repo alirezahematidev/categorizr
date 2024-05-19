@@ -10,6 +10,12 @@ export type FlatNode = {
   [property: string]: any;
 };
 
+export type TreeOptions<T extends TreeNode> = {
+  listener?: Callback<T>;
+};
+
+export type NodeProperties = { [prop: string]: any };
+
 export type TreeLike<T extends TreeNode> = T | T[];
 
 export type MaybeNode<T extends TreeNode> = T | undefined;
@@ -21,6 +27,10 @@ export type CallbackWithError<T extends TreeNode> = (tree: readonly T[], error: 
 export type Replacer<T extends TreeNode> = Omit<T, "id"> & { id?: T["id"] };
 
 export type Mutable<T> = T extends readonly (infer U)[] ? Array<U> : T;
+
+export type WithoutChildren<T> = Omit<T, "children">;
+
+export type WithChildren<T> = T & { children: T[] };
 
 export type ActualParameters<T extends TreeNode, K extends keyof TreeImpl<T>> = Parameters<TreeImpl<T>[K]> extends [...infer R, infer C] ? [T[], ...R, C?] : never;
 

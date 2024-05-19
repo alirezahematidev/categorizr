@@ -1,4 +1,4 @@
-import { Callback, CallbackWithError, TreeNode, Replacer, TreeImpl, TreeLike, MaybeNode } from "$core/index";
+import { Callback, CallbackWithError, TreeNode, Replacer, TreeImpl, TreeLike, MaybeNode, TreeOptions } from "$core/index";
 import * as functions from "./functions";
 import * as utils from "./utils";
 import { nonUniqueTreeWarning, safeError } from "./helpers";
@@ -10,14 +10,14 @@ class Tree<T extends TreeNode> implements TreeImpl<T> {
 
   private listener: Callback<T> | undefined;
 
-  constructor(tree: T[], listener?: Callback<T>) {
+  constructor(tree: T[], options: TreeOptions<T> = {}) {
     nonUniqueTreeWarning(tree, "constructor");
 
     this.tree = tree;
 
     this.currentTree = tree;
 
-    this.listener = listener;
+    this.listener = options.listener;
   }
 
   private listen(callback: Callback<T>) {
