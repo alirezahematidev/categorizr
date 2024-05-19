@@ -1,18 +1,18 @@
 import { CallbackWithError, TreeNode } from "$core/index";
 import { clone, containsNode, exception, findNode, findParent, error, nonUniqueTreeWarning, assertion } from "../helpers";
 
-function safeSwap<T extends TreeNode>(tree: readonly T[], from: string, to: string): T[];
-function safeSwap<T extends TreeNode>(tree: readonly T[], from: string, to: string, callback: CallbackWithError<T>): void;
-function safeSwap<T extends TreeNode>(tree: readonly T[], from: string, to: string, callback?: CallbackWithError<T>) {
+function safeSwap<T extends TreeNode>(tree: readonly T[], source: string, target: string): T[];
+function safeSwap<T extends TreeNode>(tree: readonly T[], source: string, target: string, callback: CallbackWithError<T>): void;
+function safeSwap<T extends TreeNode>(tree: readonly T[], source: string, target: string, callback?: CallbackWithError<T>) {
   assertion(tree);
 
   nonUniqueTreeWarning(tree, "safeSwap");
 
   const cloneTree = clone(tree);
 
-  const fromNode = findNode(cloneTree, from);
+  const fromNode = findNode(cloneTree, source);
 
-  const toNode = findNode(cloneTree, to);
+  const toNode = findNode(cloneTree, target);
 
   if (!fromNode || !toNode) {
     error("safeSwap", "Cannot found the from/to node with the given ids.");
@@ -28,7 +28,7 @@ function safeSwap<T extends TreeNode>(tree: readonly T[], from: string, to: stri
     return cloneTree;
   }
 
-  if (containsNode(cloneTree, from, to) || containsNode(cloneTree, to, from)) {
+  if (containsNode(cloneTree, source, target) || containsNode(cloneTree, target, source)) {
     error("safeSwap", "Nodes cannot be swapped as one is a descendant of the other.");
 
     if (callback) return void callback(tree, exception("safeSwap", "Nodes cannot be swapped as one is a descendant of the other."));
