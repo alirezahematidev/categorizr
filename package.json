@@ -13,7 +13,7 @@
     "build:core": "pnpm -r --filter='./packages/core' run build",
     "build:react": "pnpm -r --filter='./packages/react' run build",
     "build": "pnpm -r --parallel --filter='./packages/*' run build",
-    "release": "pnpm build:core && tsx scripts/release.ts"
+    "release": "pnpm build:react && tsx scripts/release.ts"
   },
   "devDependencies": {
     "@types/node": "20.12.11",
