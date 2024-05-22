@@ -1,6 +1,6 @@
 {
   "name": "@treekit/react",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "type": "module",
   "author": "Alireza Hemati",
   "description": "A superpower tool to manage and handle nested tree data in react",
